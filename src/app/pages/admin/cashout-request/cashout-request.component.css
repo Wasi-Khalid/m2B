@@ -1,0 +1,30 @@
+.inner {
+    float: left;
+    padding: 5px !important;
+}
+
+.td {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cardStyle {
+    overflow: auto;
+    margin-bottom: 3.5rem !important;
+}
+
+.addBtn {
+    position: absolute;
+    right: 2rem;
+}
+
+.order-item {
+    border: 2px solid #dfdfdf;
+    margin: 0.3rem 0px;
+    border-radius: .25rem;
+    padding: .5rem;
+}
+
+.SKU-td {
+    padding: 0.3rem;
+}

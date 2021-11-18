@@ -1,0 +1,106 @@
+<div class="card card-shadow mb-4 col-12 cardStyle">
+    <div class="card-header">
+        <div class="card-title text-center">
+            Products List
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col" class="img_title">Product Image</th>
+                    <th scope="col">Product Status</th>
+                    <th scope="col">Product Color</th>
+                    <th scope="col">Product Category</th>
+                    <th scope="col" style=" text-align: center;">SKU Details</th>
+                    <th scope="col">Action
+                        <a class="btn btn-outline-secondary addBtn" [routerLink]="['add-product']"><i class="fa fa-plus"></i>
+              Add</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="!isSupplierProduct">
+                    <tr *ngFor="let product of myProduct; let i = index;">
+
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{product.product_name}}</td>
+                        <td align="center">
+                            <img src="{{product.path}}" alt="None">
+                        </td>
+                        <td>{{product.status}}</td>
+                        <td><span class="dot" [ngStyle]="{'background-color':product.color}"></span> {{product.color}}</td>
+                        <td>{{categoriesName[i]}}</td>
+                        <td>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SKU Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of product.productSKU; let i = index;">
+                                        <td scope="col" class="SKU-td">{{item.SKU_Name}}</td>
+                                        <td scope="col" class="SKU-td">$ {{item.SKU_Price}}</td>
+                                        <td scope="col" class="SKU-td">{{item.SKU_Quantity}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+
+                            <a class="btn btn-outline-secondary" [routerLink]="['edit-product/']" [queryParams]="{ productId: product.key }"><i class="fa fa-pencil"></i> Edit</a>
+                            <a class="btn btn-outline-danger" (click)='deleteProductOne(product.key)'><i class="fa fa-trash-o"></i>
+                Delete</a>
+                        </td>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="isSupplierProduct">
+                    <tr *ngFor="let product of products; let i = index;">
+
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{product.product_name}}</td>
+                        <td align="center">
+                            <img src="{{product.path}}" alt="None">
+                        </td>
+                        <td>{{product.status}}</td>
+                        <td><span class="dot" [ngStyle]="{'background-color':product.color}"></span> {{product.color}}</td>
+                        <td>{{categoriesName[i]}}</td>
+                        <td>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SKU Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of product.productSKU; let i = index;">
+                                        <td scope="col" class="SKU-td">{{item.SKU_Name}}</td>
+                                        <td scope="col" class="SKU-td">$ {{item.SKU_Price}}</td>
+                                        <td scope="col" class="SKU-td">{{item.SKU_Quantity}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+
+                            <a class="btn btn-outline-secondary" [routerLink]="['edit-product/']" [queryParams]="{ productId: product.key }"><i class="fa fa-pencil"></i> Edit</a>
+                            <a class="btn btn-outline-danger" (click)='deleteProductOne(product.key)'><i class="fa fa-trash-o"></i>
+                Delete</a>
+                        </td>
+                    </tr>
+                </ng-container>
+
+            </tbody>
+        </table>
+    </div>
+</div>

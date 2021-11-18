@@ -1,0 +1,131 @@
+<app-header previousAction="M2B" previousLink="/mym2bBasic"></app-header>
+<!-- myOrderList -->
+<section id="buy_back">
+    <div class="container ">
+        <div class="my_m2b_head">
+          <h2>My Orders</h2>
+          <H3 *ngIf="error">No found</H3>
+        </div>
+        <div class="">
+            <div class="bd-example">
+                    <div id="accordion">
+                        
+                        
+                        <div class="" *ngFor="let order of myOrdersInfo; let i = index;">
+                            <div class="orders_listing onclick " role="tab" id="headingOne" (click)="(clicked === order)? clicked = '':clicked = order">
+                                <div class="row ">
+                                <div class="col-sm-6 order_no">
+                                  <b>Order No {{i+1}}</b>
+                                  <p class="date-order">{{order.date}} </p>
+                                    
+                                </div>
+                                <div class="col-sm-6 shipped_down">
+                                    
+                                    <b class="status" [ngStyle]="{'color': order.status === 'Shipped' ? 'green' : 'red' }">{{order.status}} <i class="fa fa-angle-down icon-s" [class.animat]="clicked === order"></i></b>
+                                </div>
+                                </div>
+
+                                
+                            </div>
+
+                            <div id="collapseOne" class="collapse shipped_box dropdown_box" [class.show]="clicked === order" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+
+                                <div class="contact_seller">
+
+                                    <!-- <select class="btn btn-outline-secondary btn-sm dropdown-toggle form-control addBtn btn-top"  (change)="onContact($event.target.value)">
+                                    <option value="0">
+                                      Contact Seller
+                                    </option>
+                                    <option *ngFor="let subOrder of order.supplierOrderInfo ; let i = index;"
+                                      [value]="subOrder.supplierOrderId">
+                                      Seller {{i+1}}
+                                    </option>
+                                  </select> -->
+                                </div>
+
+                                <div *ngIf="order.cart">
+                                    <i class="fa fa-star star"></i>
+                                </div>
+                                <div class="card-block" *ngFor="let item of order.cart">
+                                    <div class="regular_lcd">
+                                        <h5 >{{item.product.productName}}</h5>
+                                    </div>
+
+                                    <table class="table table-hover table_box">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Product Name</th>
+                                                <th scope="col">SKU Name</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Attribute</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let p of order.cart; let i = index;">
+                                                <td scope="col">{{p.product.product_name}}</td>
+                                                <td scope="col"> {{p.sku.SKU_Name}}</td>
+                                                <td scope="col">$ {{p.sku.SKU_Price}}</td>
+                                                <td scope="col">{{p.qty}}</td>
+                                                <td scope="col">{{p.astr}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                 
+
+                                    
+                                    <div>
+
+                                        <div class="delivery_details">
+                                            <h4>Delivery Detail</h4>
+                                            <!-- <p>
+                                                <b>Tracking Number:</b>
+                                                <span (click)="setUrl(track.trackingNo , track.courierInfo )" style="color:dodgerblue; cursor: pointer">
+                                                    {{track.trackingNo}}
+                                                </span>
+                                            </p> -->
+
+                                            <!-- <p>
+                                                <b>Courier : </b>
+                                                <span>
+                                                {{urls[track.courierInfo-1]?.name}}</span>
+                                            </p>
+                                            <p> 
+                                                <b>Time Est :</b>
+                                                <span >
+                                                {{track.timeEst}}
+                                            </span>
+                                            </p>-->
+                                            <p>
+                                                <b>Deliver Address:</b>
+                                                <span class="">
+                                                {{order.saddress.address}}
+                                            </span>
+                                            </p>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6 total_price">
+                                            <h6 style="color: #232323;">Total Price: $ {{order.tot}} </h6>
+                                        </div>
+                                        <div class="col-sm-6 open_return">
+                                        <a style="border:none;" class="btn btn-outline-secondary addBtn" [routerLink]="['returnRequest']" [queryParams]="{ userId: order.id }">
+                                          Open Return Request</a>
+                                          </div>
+                                    </div>
+
+                                    
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+        
+
+        <!-- .// Accordion -->
+        <app-footer></app-footer>

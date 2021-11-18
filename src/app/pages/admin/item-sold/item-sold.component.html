@@ -1,0 +1,54 @@
+<div class="card card-shadow mb-4 col-12 cardStyle">
+    <div class="card-header">
+        <div class="card-title text-center">
+            Items Sold
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">All Product</th>
+                    <th scope="col">SKU & Quantity Sold</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let product of myProduct; let i = index;">
+
+                    <th scope="row">
+                        {{i+1}}
+                    </th>
+                    <td>
+                        {{product.product_name}}
+                    </td>
+                    <td>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SKU Name</th>
+                                    <th scope="col">Quantity Sold</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Profit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of product.productSKU; let i = index;">
+                                    <td scope="col" class="SKU-td">{{item.SKU_Name}}</td>
+                                    <td scope="col" class="SKU-td">{{+item.SKU_sold_qty - +item.SKU_Quantity}}</td>
+                                    <td scope="col" class="SKU-td">{{item.total_price | number : '1.2-2'}}</td>
+                                    <td scope="col" class="SKU-td">{{item.total_profit | number : '1.2-2'}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

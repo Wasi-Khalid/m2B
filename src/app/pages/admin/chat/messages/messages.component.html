@@ -1,0 +1,59 @@
+<app-header previousAction="Chats" previousLink="/admin/chat"></app-header>
+<div class="container ">
+    <div class="jumbotron m-0 p-0 bg-transparent" style="margin-top: 65px  !important; ">
+        <div class="row m-0 p-0 position-relative">
+            <div class="col-12 p-0 m-0 position-absolute" style="right: 0px;">
+                <div class="card border-0 rounded" style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 6px 10px 0 rgba(0, 0, 0, 0.01); overflow: hidden; height: 100vh;">
+
+                    <div class="card-header p-1 bg-light border border-top-0 border-left-0 border-right-0" style="color: rgba(96, 125, 139,1.0);">
+
+                        <img class="rounded float-left" style="width: 50px; height: 50px;" src="../../../assets/img/admin.png" />
+
+                        <h6 class="float-left" style="margin: 0px; margin-left: 10px; margin-top: 2px;">
+                            {{ idName == 'orderId' ? userName:'Admin' }}<br><i class="fa fa-circle online"></i> <small> online
+							</small></h6>
+
+
+                    </div>
+
+                    <div class="card bg-sohbet border-0 m-0 p-0" style="height: 100vh;">
+                        <div id="sohbet" class="card border-0 m-0 p-0 position-relative bg-transparent" style="overflow-y: auto; height: 100vh;" #scrollMe>
+
+                            <div *ngFor="let messages of chats;">
+                                <div *ngFor="let message of messages.messages;">
+                                    <div class=" p-2 m-0 position-relative" [ngClass]="message.senderEmail === ownEmail? 'balon1':'balon2'" style="  margin-top: 2rem !important;">
+                                        <a>{{message.message}}</a>
+                                    </div><br>
+                                    <div>
+                                        <p class=" p-2 m-0 " [ngClass]="message.senderEmail === ownEmail? 'b1':'position-relative'">
+                                            {{timeagos(+message.timeSent)}}</p>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class=" w-100 card-footer p-0 bg-light border border-bottom-0 border-left-0 border-right-0" style="margin-bottom: 8.5rem !important; ">
+
+                            <form>
+                                <div class="col-9 m-0 p-1" style="float: left; ">
+                                    <textarea placeholder="Type a message..." name="message" class="textarea" [(ngModel)]="message" (keydown)="handleSubmit($event)"></textarea>
+
+                                </div>
+                                <div class="col-3 m-0 p-1 " style="float: right ">
+                                    <button class="btn btn-outline-secondary rounded border w-100 mt-2" (click)="send()"><i
+											class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

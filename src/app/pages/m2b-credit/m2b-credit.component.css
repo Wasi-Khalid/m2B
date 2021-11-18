@@ -1,0 +1,17 @@
+ .container {
+     padding-top: 60px;
+ }
+ 
+ @media screen and (max-width: 400px) {
+     #paypal-checkout-btn {
+         width: 100%;
+     }
+ }
+ /* Media query for desktop viewport */
+ 
+ @media screen and (min-width: 400px) {
+     #paypal-checkout-btn {
+         width: 250px;
+         display: inline-block;
+     }
+ }

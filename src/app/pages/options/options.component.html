@@ -1,0 +1,27 @@
+
+<div class="container">
+
+    <div class="options_form">
+        <form class="form-signin middlebox">
+        <div class="login_logo">
+            <img src="../../../assets/img/Logo-splash.png" alt="" />
+            <h4>Connecting Manufacturer to business</h4>
+        </div>
+
+        <div class="sign_in">
+            <h5>I am a:</h5>
+        <div class="borderbtn">
+            <button class="btn btn-lg btn-outline-light btn-block " [routerLink]="['../register']" [queryParams]="{option:'Business'}">Business</button>
+        </div>
+        <div class="borderbtn">
+            <button class="btn btn-lg btn-outline-light btn-block " [routerLink]="['../register']" [queryParams]="{option:'Courier'}">Courier</button>
+        </div>
+        <div class="borderbtn">
+            <button class="btn btn-lg btn-outline-light btn-block " [routerLink]="['../register']" [queryParams]="{option:'Supplier'}">Supplier</button>
+        </div>
+        </div>
+        
+      
+    </form>
+    </div>
+</div>

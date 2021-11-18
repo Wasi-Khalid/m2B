@@ -1,0 +1,15 @@
+.app-header .navbar-nav .nav-link {
+    color: white !important;
+}
+
+.app-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 2;
+}
+
+.fontbtn {
+    font-size: 15px;
+}

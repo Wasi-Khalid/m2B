@@ -1,0 +1,87 @@
+.productInfoIcon {
+    position: absolute;
+    z-index: 1;
+}
+
+/*
+.scrollable {
+    overflow: scroll;
+}
+*/
+
+@media screen and (max-width: 552px) {
+    .smallscreen {
+        width: 130px;
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .smallscreen {
+        width: 100px !important;
+    }
+    .mblescreen a,
+    p {
+        font-size: 10px;
+    }
+}
+
+.card-padding-ashlar {
+    padding: 0.5rem;
+}
+
+.nav-tabs {
+    border: none !important;
+}
+
+.bgColor {
+    background-color: #FED001;
+    color: white;
+}
+
+.beautifyService {
+    background-color: white !important;
+}
+
+.beautifyService img {
+    min-height: 130px;
+    max-height: 130px;
+}
+
+.beautifyService h5 {
+    text-align: center;
+    font-size: 12px;
+}
+
+.beautifyService .card {
+    border: none;
+}
+
+.custom-height {
+    height: 160px;
+}
+
+.icon {
+    font-size: 30px;
+    color: #8b39ef;
+}
+
+.mblescreen p {
+    font-size: 12px;
+}
+
+.mblescreen div {
+    background-color: #f2f2f2;
+}
+
+.active {
+    transform: scale(0.95);
+    border-style: ridge;
+    border-width: 5px;
+}
+
+.p2 {
+    padding-top: .5rem!important;
+    padding: 0px;
+    float: center;
+}

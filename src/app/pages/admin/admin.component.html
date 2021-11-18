@@ -1,0 +1,14 @@
+<div class="app header-fixed left-sidebar-fixed right-sidebar-fixed right-sidebar-overlay  right-sidebar-hidden" [ngClass]="{'left-sidebar-hidden': message,'mobile-leftside-show': message }">
+    <app-header previousAction="Log Out" previousLink="/auth/login" (menuvisibleChange)="receiveMessage($event)" *ngIf="localStorageData === '0101' "></app-header>
+
+    <app-header previousAction="Home" previousLink="/supplierHome" (menuvisibleChange)="receiveMessage($event)" *ngIf="localStorageData === '0301' "></app-header>
+
+    <div class="app-body" style="background: rgb(255, 255, 255)">
+        <app-side-nav></app-side-nav>
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <app-admin-footer>
+    </app-admin-footer>
+</div>

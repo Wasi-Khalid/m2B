@@ -1,0 +1,17 @@
+img {
+    width: 7rem;
+}
+
+.addBtn {
+    position: absolute;
+    right: 2rem;
+}
+
+.cardStyle {
+    overflow: auto;
+    margin-bottom: 3.5rem !important;
+}
+
+.SKU-td {
+    padding: 0.3rem 1.4rem;
+}

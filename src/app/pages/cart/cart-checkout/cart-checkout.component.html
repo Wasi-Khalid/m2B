@@ -1,0 +1,119 @@
+<app-header previousLink="/home/products?cOut={{id}}" previousAction="Home"></app-header>
+<div class="container">
+    <div class="row text-center mt-3">
+        <h3 class="col-12">Thank You!</h3>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <div *ngFor="let item of orderList; let i = index" class="table-style">
+                <h5 class="prodTitle">{{item.productName}} </h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td class=" title-text" scope="col">Product Type</td>
+                            <td class=" title-text">Price</td>
+
+                            <td><input type="text" class="form-control title-text" [value]="item['col1Title']" disabled="true"></td>
+                            <td><input type="text" class="form-control title-text" [value]="item['col2Title']" disabled="true"></td>
+                            <td class=" title-text">Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let type of item['productSKU']; let x = index">
+                            <th scope="row">{{type.SKU_Name}}</th>
+                            <td>$ {{type.SKU_Price}}</td>
+                            <td>{{type.col1Value? type.col1Value : 'None' }}</td>
+                            <td>{{type.col2Value? type.col2Value : 'None'}}</td>
+                            <td style="text-align: center;">{{type.quantity }}</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-6">
+            Referral Code
+        </div>
+        <div class="col-6">
+            <input type="number" class="form-control" disabled="true" placeholder="M2BXXX-01" />
+        </div>
+    </div>
+
+
+    <div class="row mt-3">
+        <div class="offset-6 col-6 text-right">
+
+            <i class="fa fa-money-bill mr-3"></i>Order Total : <a>$ {{totalSelectPrice}}</a>
+
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="offset-6 col-6 text-right">
+
+            <i class="fa fa-money-bill mr-3"></i>Total Saved : <a>$ 0</a>
+
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12 text-center bld">
+            Delivery Detail
+        </div>
+    </div>
+
+    <div *ngFor="let user of users; let i = index;">
+
+        <div class="row ">
+            <div class="col-6 text-right ">
+                <strong>Supply {{i+1}} :</strong>
+            </div>
+            <div class="col-6 text-left">
+                {{user.name}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 text-right ">
+                <strong>Courier : </strong>
+            </div>
+            <div class="col-6 text-left fs-s">
+                Padding for supplier review</div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 text-right ">
+                <strong>Contact :</strong>
+            </div>
+            <div class="col-6 text-left">
+                {{user.phoneNo}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 text-right ">
+                <strong>Time Est :</strong>
+            </div>
+            <div class="col-6 text-left fs-s">
+                Padding for supplier review
+            </div>
+        </div>
+        <hr />
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12 text-center">
+            <strong><a [routerLink]="['/myOrderList']">Track Your Order</a></strong>
+        </div>
+    </div>
+
+
+</div>

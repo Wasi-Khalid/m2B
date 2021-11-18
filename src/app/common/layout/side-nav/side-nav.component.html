@@ -1,0 +1,87 @@
+<div class="app left-sidebar-fixed ">
+
+
+    <!--left sidebar start-->
+    <div class="left-sidebar">
+        <nav class="sidebar-menu">
+
+            <ul id="nav-accordion">
+                <li>
+                    <a>
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li *ngIf="isSupplierProduct">
+                    <a [routerLink]="['categories']">
+                        <i class="fa fa-th"></i>
+                        <span>Categories</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['categories/products']">
+                        <i class="fa fa-sitemap"></i>
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li *ngIf="isSupplierProduct">
+                    <a [routerLink]="['categories/suppliers']">
+                        <i class="fa fa-users"></i>
+                        <span>Suppliers</span>
+                    </a>
+                </li>
+                <li *ngIf="isSupplierProduct">
+                    <a [routerLink]="['categories/businesses']">
+                        <i class="fa fa-users"></i>
+                        <span>Businesses</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['order-list']">
+                        <i class="fa fa-list-alt"></i>
+                        <span *ngIf="isSupplierProduct">Order List</span>
+                        <span *ngIf="!isSupplierProduct">Revenue</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['chat']">
+                        <i class="fa fa-comments"></i>
+                        <span>Chats</span>
+                    </a>
+                </li>
+                <li *ngIf="isSupplierProduct">
+                    <a [routerLink]="['suppliers-request']">
+                        <i class="fa fa-user-plus"></i>
+                        <span>Suppliers Request</span>
+                    </a>
+                </li>
+                <li *ngIf="isSupplierProduct">
+                    <a [routerLink]="['suppliers-cashout-request']">
+                        <i class="fa fa-plus"></i>
+                        <span>Cashout Requests</span>
+                    </a>
+                </li>
+                <li *ngIf="isSupplierProduct">
+                    <a [routerLink]="['settings']">
+                        <i class="fa fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li *ngIf="!isSupplierProduct">
+                    <a [routerLink]="['suppliers-return-request']">
+                        <i class="fa fa-plus"></i>
+                        <span>Return Requests</span>
+                    </a>
+                </li>
+                <li *ngIf="!isSupplierProduct">
+                    <a [routerLink]="['items-sold']">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span>Items Sold</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+    <!--left sidebar end-->
+</div>

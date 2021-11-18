@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="form-signin" style="max-width: 729px; padding: 21px;">
+        <div class="card card-shadow mb-4 col-12 cardStyle">
+            <div class="card-header">
+                <div class="card-title text-center">
+                    Settings
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="deduction">Enter Deduction (In Percentage)</label>
+                    <input id="deduction" class="form-control" [(ngModel)]="settongData.deduction" [value]="settongData.deduction " type="number" placeholder="Enter Deduction for Supplier in Percentage">
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" (click)="onSave()">Save</button>
+
+            </div>
+        </div>
+    </div>
+</div>

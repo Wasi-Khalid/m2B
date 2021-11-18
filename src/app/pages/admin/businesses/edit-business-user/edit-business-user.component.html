@@ -1,0 +1,36 @@
+<app-header></app-header>
+<div class="container">
+    <form class="form-signin" [formGroup]="addBusinessUserForm">
+
+        <h2 class="form-signin-heading">Edit User Profile</h2>
+        <div class="form-group">
+            <label for="proName">Business User Name</label>
+            <input type="text" id="proName" class="form-control" formControlName="name">
+        </div>
+        <div class="form-group">
+            <label for="email">Business User Email</label>
+            <input type="text" id="email" class="form-control" formControlName="email">
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNo">Business User Phone Number</label>
+
+            <input type="text" id="phoneNo" formControlName="phoneNo" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>User Option</label>
+            <select class="btn btn-secondary dropdown-toggle form-control" style="background-color: #F78C3C" formControlName="option">
+        <option *ngFor="let item of option" [value]="item.value">{{item.name}}</option>
+      </select>
+        </div>
+        <div class="form-group">
+            <label for="credit">User Credit</label>
+            <input type="text" id="credit" class="form-control" formControlName="credit">
+        </div>
+
+        <div class="borderbtn">
+            <button class="btn btn-lg btn-primary btn-block" (click)="updateForm(addBusinessUserForm.value)" [routerLink]="['../../suppliers']"> Update </button>
+        </div>
+    </form>
+</div>

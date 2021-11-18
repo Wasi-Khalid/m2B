@@ -1,0 +1,52 @@
+<div class="card card-shadow mb-4 col-12 ">
+    <div class="card-header">
+        <div class="card-title text-center">
+            Products List
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Product Image</th>
+                    <th scope="col">Product Status</th>
+                    <th scope="col">Product Price</th>
+                    <th scope="col">Product Color</th>
+                    <th scope="col">Product Quantity</th>
+                    <th scope="col">Action</th>
+                    <th scope="col">
+                        <a class="btn btn-outline-secondary " [routerLink]="['../add-product']" style="margin-left: 70%"><i
+                class="fa fa-plus"></i>
+              Add</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products  ; let i = index;">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{product.product_name}}</td>
+                    <td align="center">
+                        <img src="{{product.product_image_url}}" alt="None">
+                    </td>
+                    <td>{{product.status}}</td>
+                    <td>{{product.price}}</td>
+                    <td><span class="dot"></span> {{product.color}}</td>
+                    <td>{{product.quantity}}</td>
+                    <td>
+
+                        <a class="btn btn-outline-secondary" [routerLink]="['../edit-product/']" [queryParams]="{ productId: product.key }"><i class="fa fa-pencil"></i> Edit</a>
+                        <a class="btn btn-outline-danger" (click)='deleteProductOne(product.key)'><i class="fa fa-trash-o"></i>
+              Delete</a>
+                    </td>
+
+                </tr>
+                <tr [hidden]="!error">
+                    <td>Not Found !!! </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

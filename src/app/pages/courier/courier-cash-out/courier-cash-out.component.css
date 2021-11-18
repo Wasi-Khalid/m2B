@@ -1,0 +1,26 @@
+.container{
+    padding-top: 60px;
+
+ }
+
+ .heading{
+    text-align: center;
+ }
+.myCard{
+    padding-bottom: 60px;
+}
+
+
+.card-body{
+    max-height: 450px; 
+    overflow: scroll;
+}
+
+.styling{
+    font-size:0.8em;
+}
+
+.amount{
+    font-size:0.8em;
+    float: right;
+}

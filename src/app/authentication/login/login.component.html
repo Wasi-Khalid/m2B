@@ -1,0 +1,76 @@
+
+<div class="container">
+
+  <form class="form-signin middlebox" [formGroup]="loginForm" *ngIf="!isForgetPage">
+    <div class="login_logo">
+      <img src="../../../assets/img/Logo-splash.png" alt="" />
+        <h4>Connecting Manufacturer to business</h4>
+    </div>
+
+    <div class="sign_in">
+      <h5>Please sign in</h5>
+    <div class="form-group">
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input type="email" id="inputEmail" formControlName="email" class="form-control" placeholder="Email address">
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="inputPassword" class="form-control" formControlName="password" placeholder="Password">
+      <a class=" forgot_btn" style="margin:0;" (click)="forgetPageSetup()">Forgot password?</a>
+      <label class="error errorbox">{{errorMessage}}</label>
+    </div>
+
+    <div class="checkbox ">
+      <label class=" remember_me">
+        <input type="checkbox" class="">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description text">
+          Remember me
+        </span>
+      </label>
+    </div>
+    <div class="borderbtn">
+      <button class="btn btn-lg btn-outline-light btn-block" type="submit" (click)="tryLogin(loginForm.value)">Sign
+        in</button>
+    </div>
+    <div class="mt-4 text">
+      <p>
+        Don't have an account yet ? <a [routerLink]="['/auth/options']" class="text-dark darkBtn">Sign Up</a>
+      </p>
+       
+    </div>
+
+    <div class="mt-4" align="center">
+      <a [routerLink]="['/auth/options']" class="options_box">Options</a>
+    </div>
+    </div>
+    
+    
+  </form>
+
+
+  <form class="form-signin" [formGroup]="resetForm" *ngIf="isForgetPage">
+    <a class="brand text-center">
+      <img src="../../../assets/img/Logo-splash.png" alt="" />
+      <h2 class="form-signin-heading text"><i>Connecting Manufacturer to business</i></h2>
+    </a>
+    <h2 class="form-signin-heading text">Please Enter Email Address</h2>
+    <div class="form-group">
+      <label for="inputEmail" class="sr-only">Email Address</label>
+      <input type="email" id="inputEmail" formControlName="email" class="form-control"
+        placeholder="Please Enter Email Address">
+      <span class="mt-4 text">Go Back to</span>
+      <a (click)="forgetPageSetup()" class="text-dark darkBtn">Sign In</a>
+      <span class="mt-4 text" style="margin: 1%;"> Or </span>
+      <a [routerLink]="['/auth/options']" class="text-dark darkBtn">Sign Up</a>
+    </div>
+
+    <div class="borderbtn">
+      <button class="btn btn-lg btn-outline-light btn-block" type="submit"
+        (click)="resetPassword(resetForm.value)">Reset Password</button>
+    </div>
+
+  </form>
+
+</div>

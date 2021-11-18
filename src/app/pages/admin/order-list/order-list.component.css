@@ -1,0 +1,34 @@
+.total {
+    font-size: 20px;
+}
+
+h5 {
+    text-align: center;
+    font-weight: bold;
+}
+
+.cardStyle {
+    overflow: auto;
+    margin-bottom: 5.5rem !important;
+}
+
+.addBtn {
+    position: absolute;
+    right: 2rem;
+    margin-bottom: 0rem;
+}
+
+.checkout-btn {
+    position: absolute;
+    right: 2rem;
+    bottom: .5rem;
+}
+
+.show-table {
+    margin-top: 2rem;
+}
+
+.labelStyle {
+    margin-bottom: 0rem;
+    margin-top: .5rem;
+}

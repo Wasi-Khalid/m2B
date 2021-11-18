@@ -1,0 +1,51 @@
+<app-header currentAction="V:02B" currentLink="/home" previousAction="Home" previousLink="/home/products"></app-header>
+<div id="buy_back">
+    <div class="container " id="chat_box">
+        <div class="my_m2b_head">
+      <h2>Chat</h2>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="bd-example">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <div class="mb-0">
+                                <div class="chat_list row" *ngFor="let messages of myChatList let i=index">
+                                    <div class="col-sm-6 order_no">
+                                        <div class="chat_people" [routerLink]="['./messages']" [queryParams]="{ userId: messages.userOrderID }" (click)="onClick(messages.key)">
+                                        <div class="chat_img " [ngClass]="{'chat_unread': messages.userUnread > 0}">
+                                            <span class="badge badge-primary unread" *ngIf="messages.userUnread > 0">{{messages.userUnread}}</span>
+                                            <img src="https://ptetutorials.com/images/user-profile.png" alt="mani"> </div>
+                                            <h5>Supplier Email: {{messages.supplierEmail}}</h5>
+                                        <p *ngIf="last">{{message.message}}
+                                                </p>
+                                    </div>
+                                    </div>
+                                    <div class="col-sm-6 shipped_down">
+                                        <div class="chat_ib">
+                                            
+                                            <div *ngFor="let message of messages.messages; let last = last">
+                                                <b class="chat_date" *ngIf="last">{{message.timeSent | date: 'dd/MM/yyyy'}}</b>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<app-footer></app-footer>

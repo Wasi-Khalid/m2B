@@ -1,0 +1,63 @@
+.container {
+    padding-top: 60px;
+}
+
+.cart-table {
+    height: 500px;
+    overflow: hidden;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+
+.left-button {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.prodTitle {
+    margin: 2%;
+    text-align: center;
+}
+
+.right-button {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.table td {
+    padding: 0.2rem !important;
+}
+
+.table th {
+    padding: 0.2rem !important;
+    padding-bottom: 1rem !important;
+    padding-right: 0.5rem !important;
+    font-size: 13px !important;
+    line-height: 2 !important;
+    white-space: nowrap;
+}
+
+input[type="text"]:disabled.title-text {
+    background-color: #fff !important;
+    font-weight: bold;
+    border: none;
+}
+
+.title-text {
+    padding: 0 !important;
+    font-weight: bold;
+    color: #53505f !important;
+}
+
+.table-style {
+    border-bottom: 1px solid #e5e9ec;
+    border-top: 1px solid #e5e9ec;
+}
+
+.addBtn {
+    margin-left: 1rem;
+}
+
+.card-body {
+    padding: 0.5rem !important;
+}

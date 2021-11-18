@@ -1,0 +1,52 @@
+<app-header previousAction="M2B" previousLink="/mym2bBasic">
+</app-header>
+<div class="container" style=" margin-bottom: 79px !important; ">
+    <div class="row mt-3" style=" text-align: center;">
+        <div class="col-12">
+            <h3>Checkout M2B Credit</h3>
+        </div>
+    </div>
+
+    <div class="row mt-3" style="text-align: center;">
+        <div class="col-12">
+            <form class="form-horizontal" role="form">
+                <fieldset>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            <h5>Purchase M2B Credit</h5>
+                            <div class="row" style="padding-left: 28%; padding-top: 2%">
+
+                                Add Amount:
+                                <div class="col-5 ">
+
+                                    <input type="number" [(ngModel)]="finalAmount" class="form-control" name="card-number" id="card-number" min="0" placeholder="$ US Dollar">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-3" style="text-align: center;">
+        <div class="col-12">
+
+
+            <div id="paypal-button-container"></div>
+
+            <br><br>
+
+            <button type="btn btn-primary" (click)="showToast()" class="btn btn-primary btn-lg" *ngIf="finalAmount <= 0" style=" margin-top: 2%">Checkout</button><br>
+
+
+            <p *ngIf="finalAmount <= 0">The safer, the easier way to pay</p>
+
+        </div>
+    </div>
+
+</div>
+
+<app-footer></app-footer>

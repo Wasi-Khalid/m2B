@@ -1,0 +1,52 @@
+<app-header currentAction="Maintainence" currentLink="/maintenance" previousAction="Cashout" previousLink="/supplierCashout"></app-header>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-12">
+            <h3>{{thisMonth}}</h3>
+        </div>
+    </div>
+
+    <div class="row mt-5 mb-5">
+        <div class="col-12">
+            <h3>$ {{credit | number : '1.2-2'}}</h3>
+            <p>{{percentageOfLastMonth}}% of last month</p>
+        </div>
+    </div>
+
+    <div class="myCard col-md-12 mb-3">
+        <div class="row grid-view">
+            <div class="col-6">
+                <p>Revenue</p>
+                <h3><strong>$ {{totalRevenue | number : '1.2-2'}}</strong></h3>
+            </div>
+            <div class="clearfix hidden-sm-up"></div>
+            <div class="col-6">
+                <p>Profit</p>
+                <h3><strong>$ {{totalSKUprofit | number : '1.2-2'}}</strong></h3>
+            </div>
+        </div>
+        <div class="row grid-view">
+            <div class="col-6">
+                <p>Orders</p>
+                <h3><strong>{{allSKUtotalQty}}</strong></h3>
+            </div>
+            <div class="clearfix hidden-sm-up"></div>
+            <div class="col-6">
+                <p>Returned</p>
+                <h3><strong>{{requestedOrdersQty}}</strong></h3>
+            </div>
+        </div>
+        <div class="row grid-view">
+            <div class="col-6">
+                <p>Last Month Profit</p>
+                <h3><strong>$ {{lastMonthTotalSKUprofit | number : '1.2-2'}}</strong></h3>
+            </div>
+            <div class="clearfix hidden-sm-up"></div>
+            <div class="col-6">
+                <p>Last Month Orders</p>
+                <h3><strong>$ {{allLastMonthQty1}}</strong></h3>
+            </div>
+        </div>
+    </div>
+
+    <app-footer></app-footer>

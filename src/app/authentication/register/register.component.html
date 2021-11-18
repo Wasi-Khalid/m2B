@@ -1,0 +1,91 @@
+
+<div class="container">
+    <form class="form-signin middlebox" [formGroup]="registerForm" id="register_page">
+        <div class="login_logo">
+            <img src="../../../assets/img/Logo-splash.png" alt="" />
+            <h4>Connecting Manufacturer to business</h4>
+        </div>
+
+        <div class="sign_in">
+        <h5>Please sign up</h5>
+        <div class="row">
+            <div class="col-sm-6 form_register">
+                <div class="form-group text">
+                    <label for="inputName ">{{option+" "+"Name"}}</label>
+                    <input type="text" id="inputName" class="form-control" formControlName="name" placeholder="example store inc">
+                </div>
+            </div>
+            <div class="col-sm-6 form_register">
+                <div class="form-group text">
+                    <label for="phoneno">Phone Number</label>
+                    <input type="number" id="phoneno" class="form-control" formControlName="phoneNo" placeholder="(917)-123-4567">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 form_register">
+                <div class="form-group text">
+                    <label for="inputEmail">Email address</label>
+                    <input type="email" id="inputEmail" formControlName="email" class="form-control" placeholder="Example@exmaple.com" required>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form_register">
+                <div class="form-group text">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" formControlName="password" placeholder="*******" required>
+                </div>
+            </div>
+            <div class="col-sm-6 form_register">
+                <div class="form-group text">
+                    <label for="inputConfirmPassword">Confirm Password</label>
+                    <input type="password" id="inputConfirmPassword" class="form-control" formControlName="cnfrmPwd" placeholder="*******">
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 form_register">
+                <div class="form-group text" *ngIf="option === 'Supplier' || option === 'Business'">
+                    <label for="Address">Address</label>
+                    <textarea type="text" id="Address" class="form-control" formControlName="address" placeholder="Address"></textarea>
+                </div>
+            </div>
+            
+        </div>
+
+        
+        
+        <div class="checkbox ">
+            <label class="remember_me">
+        <input type="checkbox" class="custom-control-input">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description text">
+          I Agree the
+          <a href="#" class="text-dark darkBtn" style="font-weight: bold;">terms and conditions.</a>
+        </span>
+      </label>
+        </div>
+
+        <div class="borderbtn">
+            <button style="margin-bottom: 0;" class="btn btn-lg btn-outline-light btn-block" (click)="tryRegister(registerForm.value)" *ngIf="show">Sign
+        up</button>
+        </div>
+
+        <button  class="btn btn-lg btn-outline-light btn-block" (click)=courierFooter() *ngIf="!show">Next</button>
+
+        <label class="error">{{errorMessage}}</label>
+        <label class="success">{{successMessage}}</label>
+
+        <div class="text remember_me">
+            <span>
+        Already have an account ?
+      </span>
+            <a style="font-weight: bold;" [routerLink]="['/auth/login']" class="text-dark darkBtn">Sign In</a>
+        </div>
+        </div>
+    </form>
+</div>

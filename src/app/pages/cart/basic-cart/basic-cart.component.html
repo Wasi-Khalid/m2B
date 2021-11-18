@@ -1,0 +1,70 @@
+<app-header previousLink="/home/products" previousAction="Back"></app-header>
+<div class="container">
+    <div class="row cart-table">
+
+        <div class="card card-shadow mb-4 col-12">
+            <div class="card-header">
+                <div class="card-title text-center">
+                    {{selectProduct.product_name}} 
+                </div>
+                <div class="btn btn-outline-secondary addBtn" (click)="resetData()"> <i class="fa fa-refresh"></i> </div>
+
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product Type</th>
+                            <th>Price</th>
+                            <td (click)="isDisable()"><input type="text" class="form-control title-text" [(ngModel)]="OrderDetail.col1Title" [value]="OrderDetail.col1Title" placeholder="{{OrderDetail.col1Title}}" [disabled]="isClicked"></td>
+                            <td (click)="isDisable()"><input type="text" class="form-control title-text" [(ngModel)]="OrderDetail.col2Title" [value]="OrderDetail.col2Title" placeholder="{{OrderDetail.col2Title}}" [disabled]="isClicked"></td>
+
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let type of SKU; let i = index">
+                            <th scope="row">{{type.SKU_Name}}</th>
+                            <td>$ {{type.SKU_Price}}</td>
+                            <td *ngIf="type.SKU_Quantity > 0 "><input type="number" class="form-control" [(ngModel)]="type.col1Value" [value]="defualSelect"></td>
+                            <td *ngIf="type.SKU_Quantity <= 0 "><input type="text" class="form-control out-of-stock" [disabled]=" true" placeholder="Out of Stock"></td>
+                            <td *ngIf="type.SKU_Quantity > 0 "><input type="number" class="form-control" [(ngModel)]="type.col2Value" [value]="defualSelect"></td>
+                            <td *ngIf="type.SKU_Quantity <= 0 "><input type="text" class="form-control out-of-stock" [disabled]=" true" placeholder="Out of Stock"></td>
+                            <td *ngIf="type.SKU_Quantity > 0 " style="  padding-left: .7rem !important;" [ngStyle]="{'background-color':((type.col1Value? type.col1Value: 0) + (type.col2Value? type.col2Value: 0))  > type.SKU_Quantity ? '#ff000073' : '#fff' }">
+                                <div>{{ (type.col1Value? type.col1Value: 0) + (type.col2Value? type.col2Value: 0)}}</div>
+                            </td>
+                            <td *ngIf="type.SKU_Quantity <= 0 "><input type="text" class="form-control out-of-stock" [disabled]=" true" placeholder="Out of Stock"></td>
+
+                            <td>
+                                <button type="button" class="btn btn-outline-danger trash-btn" (click)="removeSKU(i)"> <i
+                    class="fa fa-trash-o trash"></i></button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-center ">
+            <h2>
+                <div class="btn-sty" (click)="showToast('done')">
+                    <i class="fa fa-shopping-cart mr-3"></i><a>Done, Add To Cart</a>
+                </div>
+
+            </h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-center">
+
+            <div class="btn-sty" (click)="showToast('back')">
+                <i class="fa fa-home mr-3 "></i><a>Back, Shop more</a>
+            </div>
+
+        </div>
+    </div>
+</div>

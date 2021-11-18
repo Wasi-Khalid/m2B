@@ -1,0 +1,30 @@
+.container{
+    padding-top: 60px;
+    text-align: center;
+ }
+.myCard{
+    padding-bottom: 60px;
+}
+
+
+.card-body{
+    max-height: 650px; 
+    overflow: scroll;
+}
+
+.styling{
+    font-size:0.8em;
+}
+
+.satisfied{
+    font-size:0.8em;
+    color:green;
+}
+
+.returns{
+    font-size:0.8em;
+    color:red;    
+}
+agm-map {
+    height: 100px;
+  }

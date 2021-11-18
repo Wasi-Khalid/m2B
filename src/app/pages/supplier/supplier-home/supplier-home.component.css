@@ -1,0 +1,11 @@
+.btnStyle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .col-12{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

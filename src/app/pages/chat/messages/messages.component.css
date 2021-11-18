@@ -1,0 +1,97 @@
+body {
+    background: #ddd;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+label {
+    color: rgba(120, 144, 156, 1.0) !important;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+    outline: none !important;
+    box-shadow: 0 0px 0px rgba(120, 144, 156, 1.0) inset, 0 0 0px rgba(120, 144, 156, 0.8);
+}
+
+.textarea {
+    font-size: 14px;
+    font-weight: normal;
+    resize: none;
+    overflow-y: scroll;
+    width: 100% !important;
+}
+
+.btn {
+    padding: 10px;
+}
+
+.fa {
+    font-size: 20px;
+}
+
+.card::-webkit-scrollbar {
+    width: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 9px;
+    background: rgba(96, 125, 139, 0.99);
+}
+
+.balon1,
+.balon2 {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.balon1 a {
+    background: #42a5f5;
+    color: #fff !important;
+    border-radius: 20px 20px 3px 20px;
+    display: block;
+    max-width: 75%;
+    padding: 7px 13px 7px 13px;
+    float: right;
+}
+
+.timeStyle {
+    position: relative;
+    bottom: -0.8em;
+    display: block;
+    font-size: .750rem;
+    color: rgba(84, 110, 122, 1.0);
+}
+
+.balon2 a {
+    background: #f1f1f1;
+    color: #000 !important;
+    border-radius: 20px 20px 20px 3px;
+    display: block;
+    max-width: 75%;
+    padding: 7px 13px 7px 13px;
+    float: left;
+}
+
+.balon2:before {
+    content: attr(data-is);
+    position: absolute;
+    left: 13px;
+    bottom: -0.8em;
+    display: block;
+    font-size: .750rem;
+    color: rgba(84, 110, 122, 1.0);
+}
+
+.online {
+    color: green;
+    font-size: 65%;
+}
+
+.b1 {
+    position: absolute;
+    right: 0rem;
+}

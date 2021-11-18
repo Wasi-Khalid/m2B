@@ -1,0 +1,9 @@
+.cardStyle {
+    overflow: auto;
+    margin-bottom: 3.5rem !important;
+}
+
+.addBtn {
+    position: absolute;
+    right: 2rem;
+}

@@ -1,0 +1,59 @@
+<app-header currentAction="Credit" currentLink="/mym2bCredit" previousAction="Home" previousLink="/home/products">
+</app-header>
+<div class="container">
+    <div class="row mt-3" style=" text-align: center;">
+        <div class="col-12">
+            <h3>My M2B </h3>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="card bg-success border-0 text-light pt-3 pb-3 h-100">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class=" col-9">
+                            <h6 class="m-0 text-light">{{purchases}}</h6>
+                            <p class="f12 mb-0">Purchases</p>
+                        </div>
+                        <div class=" col-3">
+                            <i class="icon-handbag f30"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="card bg-info border-0 text-light pt-3 pb-3 h-100">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class=" col-9">
+                            <h6 class="m-0 text-light">Account Balance</h6>
+                            <p class="f12 mb-0">$ {{credit | number : '1.2-2'}}</p>
+                        </div>
+                        <div class=" col-3">
+                            <i class="icon-calculator f30"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="row mt-4" style="text-align: center;">
+        <div class="col-12">
+            <button type="btn btn-primary" class="btn btn-primary btn-lg" [routerLink]="['/mym2bCredit']"> <img
+                    src="../../../assets/img/logo.png" alt="">Purchase M2B Credit</button>
+
+        </div>
+    </div>
+
+</div>
+<app-footer></app-footer>

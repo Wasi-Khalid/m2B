@@ -1,0 +1,141 @@
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<body scroll="no" >-->
+<app-header *ngIf="isOrder" currentAction="Cart" currentLink="/basic-cart/final-cart?productId=review" previousAction="Log Out" previousLink="/home/products">
+    I m here 
+</app-header>
+<app-header *ngIf="!isOrder" previousAction="Log Out OK" previousLink="/home/products"> Not here </app-header>
+<div class="" >
+
+    <!-- status -->
+<div class="status_wrap">
+  <div class="container">
+    <div class="row">
+    <div class="col-sm-4 status_boxes">
+      <h3 class="save_bg">Saved</h3>
+    </div>
+    <div class="col-sm-4 status_boxes">
+      <h3 class="price_bg">$ {{credit | number : '1.2-2'}}</h3>
+    </div>
+    <div class="col-sm-4 status_boxes">
+      <h3 class="status_bg">Status</h3>
+    </div>
+  </div>
+  </div> 
+</div>
+<!-- brand --> 
+
+<div class="brand_wrap">
+  <div class="container">
+    <ul class="tabs">
+      <ng-container  *ngFor="let category of brands;let i = index;">
+      <li class="tab-link apple_bg" [ngStyle]="{'background-color':category.bgcolor}"  (click)="selectedBrand = category.key" data-tab="tab-1">
+      <b>{{category.name}}</b>
+      <i class="fa {{category.icon}} icon"></i>
+      </li>
+      </ng-container>
+    </ul>
+    <div id="tab-1" class="tab-content " style="display:block;" *ngIf="selectedBrand != 0">
+      <div class="brand_list" >
+        <ul>
+          <ng-container  *ngFor="let category of categories;let i = index;">
+          <li *ngIf="category.brand == selectedBrand" (click)="selectedCat = category.key">{{category.catName}}</li>
+        </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="model_category" style="display: block;" *ngIf="selectedCat">
+  <div class="container">
+    <div class="thumbnail_img">
+      <ul>
+        <ng-container  *ngFor="let product of categories;let i = index;">
+        <li *ngIf="product.parent == selectedCat">
+          <a  (click)="selectedScat = product.key">
+            <img src="{{product.path}}" alt="">
+            <b>{{product.catName}}</b>
+          </a>
+        </li>
+      </ng-container>
+        
+       
+      </ul>
+    </div>
+  </div>
+</div>
+<!--variation part-->
+<div class="model_wrap" style="display:block;" *ngIf="selectedScat">
+  <div class="container">
+  <table class="table_box">
+    <tr>
+      <th>MODEL</th>
+      <th>PRICE</th>
+      <th class="qtybox">QTY</th>
+      <th>TOTAL</th>
+    </tr>
+    <ng-container *ngFor="let product of products; let pi = index">
+    <tr *ngIf = " product.cat_id == selectedScat ">
+      <td>
+        <img class="popop_img" src="{{ product.path }}" alt="">
+          <b>{{product.product_name}} {{product.attr_index}}
+          <div class="info_box">
+            <ng-container *ngIf="true">
+            <ng-container *ngFor="let attr of product.attributes; let ai = index">
+              <ng-container *ngIf="product.attr_index == ai" >
+                <label>{{attr.name}}:</label>
+
+                <ng-container *ngFor="let value of attr.values; let i = index"><!--for attribute-->
+                  <ng-container *ngIf="value.val">
+                    <a  (click)="selectattr1(attr,pi,value.val)">{{value.val }}</a>
+                  </ng-container>
+              </ng-container>
+              </ng-container>
+          </ng-container>
+          </ng-container>
+          <ng-container *ngIf="product.selectedAttr" >
+            <ng-container *ngFor="let value of product.selectedAttr.values; let i = index"><!--for attribute-->
+            <ng-container *ngIf="value.val != ''" >
+              <a  (click)="selectattr(pi,product,product.selectedAttr.name, value.val)">{{value.val }}</a>
+            </ng-container>
+          </ng-container>
+          </ng-container>
+          </div> 
+        </b> 
+        <div class="add_to_cart_boxes">
+          <ng-container  *ngFor="let item of cart; let ci = index" >
+            <label class="boxes" *ngIf="item.pid == product.key && item.uid == userId" >
+              <div class="close" (click)="removecartitem(ci)">x</div>{{item.astr}}
+            </label>
+          </ng-container>
+         </div>
+        
+      </td>
+      <td>$ <ng-container *ngIf="product.price" >{{product.price}}</ng-container></td>
+      <td id="qty_valuebox">
+        <input  *ngIf="product.price" type="button" value="-"  (click)="product.qty = product.qty - 1">
+        <input type="text" value="{{product.qty}}" name=""/>
+        <input type="button" value="+"  *ngIf="product.price" (click)="product.qty = product.qty + 1" />
+      </td>
+      <td class="total_box cart_dollar">
+      <b *ngIf="product.price">${{product.qty * product.price}} </b>
+      <ng-container *ngIf="product.sku" >
+      <button type="button"(click) ="addcart(pi)">
+        <svg viewBox="0 0 24 24"  *ngIf="product.cart != 1"><path _ngcontent-c2="" d="M0 0h24v24H0V0z" fill="none"></path><path _ngcontent-c2="" d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path></svg>
+
+        <i class="fa fa-check" *ngIf="product.cart == 1"></i>
+
+      </button>
+    </ng-container>
+      </td>
+    </tr>
+  </ng-container>
+  </table>
+  </div> 
+</div>
+</div>
+<app-footer></app-footer>
+<!-- sub total -->
+<div class="subtotal" (click)="checkout()" >
+  <h3><img src="images/logo.png" alt=""> <a >Cart Subtotal: <span>${{tot}}</span></a></h3>
+</div>

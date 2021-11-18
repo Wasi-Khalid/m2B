@@ -1,0 +1,74 @@
+<div class="card card-shadow mb-4 col-12 cardStyle">
+    <div class="card-header">
+        <div class="card-title text-center">
+            Cashout Requests
+
+        </div>
+
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Requests No.</th>
+                    <th scope="col"></th>
+                    <th scope="col">Total Price</th>
+                    <th>Supplier Detail</th>
+                    <th>Requests</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let order of requests; let i = index;">
+                    <th scope="row">{{i+1}}</th>
+                    <td>
+                        <div *ngFor="let item of order.orderDetail; let i = index;" class="order-item">
+                            <h6 style="text-align: center; font-weight: bold;">Order {{i+1}}</h6>
+                            <div *ngFor="let prod of item">
+                                <h6 style="margin-left:0.3rem">{{prod.productName}}</h6>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">SKU Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let product of prod.productSKU; let i = index;">
+                                            <td scope="col" class="SKU-td">{{product.SKU_Name}}</td>
+                                            <td scope="col" class="SKU-td">$ {{product.SKU_Price}}</td>
+                                            <td scope="col" class="SKU-td">{{product.quantity}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </td>
+                    <td style="padding: 2.5rem;">$ {{order.totalPrice}}
+
+                    </td>
+                    <td>
+                        <ul style="list-style: none; padding-left: 0px;">
+                            <li><strong>Name:</strong> {{user[i]?.name}}</li>
+                            <li><strong>Email:</strong> {{user[i]?.email}}</li>
+                            <li><strong>Contact No:</strong> {{user[i]?.phoneNo}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngIf="order.requestApprove == '0'">
+                            <a class="btn btn-outline-success" (click)="approveRequest(order.key)"> Approve</a>
+                        </div>
+
+                    </td>
+                </tr>
+
+
+            </tbody>
+        </table>
+
+
+    </div>
+</div>

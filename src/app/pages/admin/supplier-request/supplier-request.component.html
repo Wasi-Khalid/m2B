@@ -1,0 +1,30 @@
+<div class="card card-shadow mb-4 col-12 cardStyle">
+
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Supplier ID</th>
+                    <th scope="col">Supplier Name</th>
+                    <th scope="col">Supplier Email</th>
+                    <th scope="col">Supplier Phone No</th>
+                    <th scope="col">Option</th>
+                    <th scope="col">Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users; let i = index;">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phoneNo}}</td>
+                    <td>{{user.option}}</td>
+                    <td>
+                        <a class="btn btn-outline-success" (click)='approveRequest(user.key)'> Approve</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+<div class="card card-shadow mb-4 col-12 cardStyle">
+    <div class="card-header">
+        <div class="card-title text-center">
+            Orders List
+
+        </div>
+
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Order No.</th>
+                    <th scope="col"></th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col" *ngIf="!isSupplierProduct">Businuss Detail</th>
+                    <th scope="col" *ngIf="!isSupplierProduct"> Tracking Information.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="isSupplierProduct">
+                    <tr *ngFor="let order of orderList; let i = index;">
+                        <th scope="row">{{i+1}}</th>
+                        <td>
+                            <div *ngFor="let item of order.productDetail">
+                                <h5>{{item.productName}}</h5>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">SKU Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">{{item.col1Title}}</th>
+                                            <th scope="col">{{item.col2Title}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let product of item.productSKU; let i = index;">
+                                            <td scope="col">{{product.SKU_Name}}</td>
+                                            <td scope="col">$ {{product.SKU_Price}}</td>
+                                            <td scope="col">{{product.quantity}}</td>
+                                            <td scope="col">{{product.col1Value? product.col1Value : 'None' }}</td>
+                                            <td scope="col">{{product.col2Value? product.col2Value : 'None' }}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </td>
+                        <td>$ {{order.totalPrice | number : '1.2-2'}}
+                        </td>
+
+                    </tr>
+                </ng-container>
+                <!-- for supplier  -->
+                <ng-container *ngIf="!isSupplierProduct">
+                    <tr *ngFor="let order of supplierOrderList; let i = index;">
+                        <th scope="row">{{i+1}}</th>
+                        <td>
+                            <div *ngFor="let item of order.productDetail">
+                                <h5>{{item.productName}}</h5>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">SKU Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">{{item.col1Title}}</th>
+                                            <th scope="col">{{item.col2Title}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let product of item.productSKU; let i = index;">
+                                            <td scope="col">{{product.SKU_Name}}</td>
+                                            <td scope="col">$ {{product.SKU_Price}}</td>
+                                            <td scope="col">{{product.quantity}}</td>
+                                            <td scope="col">{{product.col1Value? product.col1Value : 'None' }}</td>
+                                            <td scope="col">{{product.col2Value? product.col2Value : 'None' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+
+                        <td>$ {{order.totalPrice | number : '1.2-2'}}</td>
+                        <td>
+                            <ul style="list-style: none; padding-left: 0px;">
+                                <li><strong>Name:</strong> {{order.userName}}</li>
+                                <li><strong>Email:</strong> {{order.userEmail}}</li>
+                                <li><strong>Contact No:</strong> {{order.userPhone}}</li>
+                                <li><strong>Delivery Address:</strong> {{order.deliverAddress}}</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <label for="trackingNo" class="labelStyle">Tracking Number</label>
+                            <input type="text" id="trackingNo" class="form-control" placeholder="Enter Tracking Number" [(ngModel)]="order.trackingNo" (click)="onClick()" [disabled]="isSave[i]">
+                            <label for="Courier" class="labelStyle">Courier </label>
+                            <select class="btn btn-secondary dropdown-toggle form-control" [(ngModel)]="order.courierInfo" style="background-color: #F78C3C" [disabled]="isSave[i]">
+                <option *ngFor="let item of courierInfo" [value]="item.value">{{item.name}}</option>
+              </select>
+                            <label for="TimeEst" class="labelStyle">Time Est</label>
+                            <input type="text" id="TimeEst" class="form-control" placeholder="Enter Estimated Time" [(ngModel)]="order.timeEst" (click)="onClick()" [disabled]="isSave[i]">
+                            <a class="btn btn-outline-secondary " (click)="onEdit(i)" *ngIf="isSave[i]">
+                Edit</a>
+                            <a class="btn btn-outline-secondary " (click)="onSave(i)" *ngIf="!isSave[i]">
+                Save</a>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <div *ngIf="!isSupplierProduct"><span class="total">My Total Credit : $
+        {{supplierTotalCredit | number : '1.2-2'}}</span>
+
+        </div>
+    </div>

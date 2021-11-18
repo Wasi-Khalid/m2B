@@ -1,0 +1,38 @@
+.container{
+    padding-top: 60px;
+    text-align: center;
+ }
+.myCard{
+    padding-bottom: 60px;
+}
+
+
+.card-body{
+    max-height: 350px; 
+    overflow: scroll;
+    padding: .5rem;
+}
+.order-item{
+    border: 2px solid #dfdfdf;
+    margin: 0.3rem 0px;
+    border-radius: .25rem;
+}
+.styling{
+    font-size:0.8em;
+}
+
+.satisfied{
+  
+    color:green;
+}
+.bold{
+    font-weight: bold;
+}
+.returns{
+    font-size:0.8em;
+    color:red;    
+}
+.title{
+    font-weight: 500;
+    font-size: initial;
+}

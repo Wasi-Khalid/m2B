@@ -1,0 +1,32 @@
+<app-header previousLink="/home/products" previousAction="Back">
+</app-header>
+<div class="container">
+    <div class="card card-shadow mb-4 col-12">
+        <div class="card-header">
+            <div class="card-title text-center">
+                <span style="font-size:1.5rem; margin-bottom: 1rem;">Product Detail</span>
+                <br>
+                <img src="{{product.path}}" alt="None" class="prodImg">
+
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+
+                <tbody>
+                    <tr>
+                        <th>Name: </th>
+                        <td>{{product.product_name}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Color: </th>
+                        <td>{{product.color}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

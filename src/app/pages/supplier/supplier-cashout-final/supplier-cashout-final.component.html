@@ -1,0 +1,62 @@
+<app-header currentAction="Cash History" currentLink="/supplierCashHistory" previousAction="Home" previousLink="/supplierHome"></app-header>
+<div class="container" style="  margin-bottom: 6rem;">
+    <div class="row mt-5">
+        <div class="col-12">
+            <p class="title">Cashout Balance</p>
+            <p> <b>My Total Balance:</b> {{realCredit}}</p>
+            <p> <b>Deduction:</b> {{settongData?.deduction}} %</p>
+            <h3>$ {{credit}}</h3>
+
+            <button class="btn btn-info btn-lg" (click)="onDone()"><i class="fa fa-money"
+                                        aria-hidden="true"></i> Done </button>
+
+        </div>
+    </div>
+
+    <p class="p-0 m-0">Selected Order List</p>
+    <div class=" col-12 mb-5 p-0">
+        <div class="card card-shadow mb-4">
+            <div class="card-body">
+                <ul class="list-group">
+                    <ng-container *ngFor="let order of orderList;">
+
+                        <span class="order-item">
+                                                        <li class="list-group-item justify-content-between p-0 m-0"
+                                                                *ngFor="let product of order.productDetail;">
+                                                                <div class="row p-0 m-0">
+                                                                        <div class="col-5 p-0">
+                                                                                <p class="p-0 m-0">
+                                                                                        {{product.productName}}</p>
+                                                                                <p class="styling">
+                                                                                        {{order.addOn | date:'MMM dd, HH:mm' }}
+                                                                                </p>
+
+                                                                        </div>
+                                                                        <div class="col-4 p-0">
+                                                                                <span>SKU Name </span>
+                        <p class="p-0 m-0 styling" *ngFor="let SKU of product.productSKU;">
+                            {{SKU.SKU_Name}} </p>
+            </div>
+            <div class="col-3 p-0 satisfied ">
+                <span>SKU Price </span>
+                <p class="p-0 m-0 styling" *ngFor="let SKU of product.productSKU;">
+                    +${{SKU.SKU_Price}} </p>
+
+            </div>
+        </div>
+        </li>
+        </span>
+        </ng-container>
+
+
+        </ul>
+    </div>
+</div>
+
+
+</div>
+
+
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,92 @@
+.container {
+    padding-top: 60px;
+}
+
+.cart-table {
+    height: 550px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.card-title {
+    font-weight: bold !important;
+    color: #343a40 !important;
+}
+
+.card-body {
+    padding: 0 !important;
+}
+
+.trash {
+    font-size: 0.9rem;
+}
+
+.table td {
+    padding: 0.2rem !important;
+}
+
+.table th {
+    padding: 0.2rem !important;
+    padding-bottom: 1rem !important;
+    padding-right: 0.2rem !important;
+    font-size: 12px !important;
+    line-height: 2 !important;
+    white-space: nowrap;
+}
+
+.form-control {
+    padding: .375rem !important;
+}
+
+input[type="text"]:disabled.title-text {
+    background-color: #fff !important;
+    font-weight: bold;
+    border: none;
+}
+
+input[type="text"].title-text {
+    color: #212529 !important;
+    font-weight: bold;
+    border: none;
+}
+
+.title-text {
+    font-size: 12px;
+    padding: 0 !important;
+}
+
+.addBtn {
+    position: absolute;
+    right: 2rem;
+    top: 1rem;
+}
+
+.trash-btn {
+    padding: .175rem .5rem !important;
+    margin-top: .3rem;
+}
+
+.out-of-stock {
+    font-size: .4rem;
+    padding-top: 0.7rem !important;
+    padding-bottom: 0.7rem !important;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn-sty {
+    color: #126efd;
+    cursor: pointer;
+}
+
+.addBtn {
+    margin-left: 1rem;
+}
+
+body, html {
+    height:100%;
+}
+
+body {
+    overflow:hidden;
+}
