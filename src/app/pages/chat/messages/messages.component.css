@@ -1,29 +1,5 @@
-body {
-    background: #ddd;
-}
 
-a {
-    text-decoration: none !important;
-}
 
-label {
-    color: rgba(120, 144, 156, 1.0) !important;
-}
-
-.btn:focus,
-.btn:active:focus,
-.btn.active:focus {
-    outline: none !important;
-    box-shadow: 0 0px 0px rgba(120, 144, 156, 1.0) inset, 0 0 0px rgba(120, 144, 156, 0.8);
-}
-
-.textarea {
-    font-size: 14px;
-    font-weight: normal;
-    resize: none;
-    overflow-y: scroll;
-    width: 100% !important;
-}
 
 .btn {
     padding: 10px;
@@ -34,12 +10,12 @@ label {
 }
 
 .card::-webkit-scrollbar {
-    width: 1px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 9px;
-    background: rgba(96, 125, 139, 0.99);
+    border-radius: 8px;
+    background: #ddd;
 }
 
 .balon1,
@@ -94,4 +70,51 @@ label {
 .b1 {
     position: absolute;
     right: 0rem;
+}
+.balon1[_ngcontent-c1], .balon2[_ngcontent-c1] {
+    padding: 29px 19px 13px 17px !important;
+}
+.balon1[_ngcontent-c1] a[_ngcontent-c1] {
+    font-size: 13px;
+}
+.messages_info[_ngcontent-c1] p[_ngcontent-c1] {
+    font-size: 13px;
+    padding: 0 19px 0 !important;
+}
+.balon2[_ngcontent-c1] a[_ngcontent-c1] {
+    font-size: 13px;
+}
+.chatscroll{
+    overflow-y: auto;
+    height: 56vh;
+    padding: 0 0 23px 0 !important;
+}
+.main_scrollbar{
+box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 6px 10px 0 rgba(0, 0, 0, 0.01); overflow: hidden; height: 100vh;
+}
+
+
+
+@media(max-width: 767px){
+    .container{
+        width: auto;
+    }
+    .balon1[_ngcontent-c1][_ngcontent-c1], .balon2[_ngcontent-c1][_ngcontent-c1] {
+    padding: 16px 19px 0px 17px !important;
+}
+    .balon2[_ngcontent-c1] a[_ngcontent-c1],.balon1[_ngcontent-c1] a[_ngcontent-c1] {
+
+    max-width: auto;
+    float: none;
+}
+    .balon1[_ngcontent-c1][_ngcontent-c1] a[_ngcontent-c1][_ngcontent-c1] {
+    font-size: 11px;
+}
+    .chatscroll[_ngcontent-c1] {
+        height: 62vh;
+    }
+    .msger-inputarea textarea {
+        padding: 10px 92px 0 13px;
+        font-size: 15px;
+    }
 }

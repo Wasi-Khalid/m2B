@@ -1,52 +1,236 @@
 <app-header previousAction="M2B" previousLink="/mym2bBasic">
 </app-header>
-<div class="container" style=" margin-bottom: 79px !important; ">
-    <div class="row mt-3" style=" text-align: center;">
-        <div class="col-12">
-            <h3>Checkout M2B Credit</h3>
-        </div>
+<div  id="buy_back">
+  <div class="container">
+    <div class="my_m2b_head">
+      <h2>Buy Back</h2>
     </div>
-
-    <div class="row mt-3" style="text-align: center;">
-        <div class="col-12">
-            <form class="form-horizontal" role="form">
-                <fieldset>
-
-                    <div class="form-group">
-                        <div class="col-12">
-                            <h5>Purchase M2B Credit</h5>
-                            <div class="row" style="padding-left: 28%; padding-top: 2%">
-
-                                Add Amount:
-                                <div class="col-5 ">
-
-                                    <input type="number" [(ngModel)]="finalAmount" class="form-control" name="card-number" id="card-number" min="0" placeholder="$ US Dollar">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </fieldset>
-            </form>
-        </div>
+    <ul class="tabs">
+      <li class="tab-link apple_bg current" data-tab="tab-1">
+      <b>APPLE</b>
+      </li>
+      <li class="tab-link samsung_bg" data-tab="tab-2">
+        <b>SAMSUNG</b>
+      </li>
+      <li class="tab-link lg_bg" data-tab="tab-3">
+        <b>IPAD</b>
+      </li>
+      
+    </ul>
+    <div id="tab-1" class="tab-content current">
+      <table class="table_box">
+    <tr>
+      <th>Model</th>
+      <th>ABC Price</th>
+      <th>Bad OEM Lcd</th>
+      <th class="working_lcd">Working Copy lCD</th>
+    </tr>
+    <tr>
+      <td><b>Iphone 12 Pro Max</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone 12/12 Pro </b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone 12 Mini</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>  <b>Iphone 11 Pro Max</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone 11/11 Pro Max</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone 11</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone XS Max</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone X/XS</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone XR</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone 8 Plus</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    
+  </table>
     </div>
-
-    <div class="row mt-3" style="text-align: center;">
-        <div class="col-12">
-
-
-            <div id="paypal-button-container"></div>
-
-            <br><br>
-
-            <button type="btn btn-primary" (click)="showToast()" class="btn btn-primary btn-lg" *ngIf="finalAmount <= 0" style=" margin-top: 2%">Checkout</button><br>
-
-
-            <p *ngIf="finalAmount <= 0">The safer, the easier way to pay</p>
-
-        </div>
+    <div id="tab-2" class="tab-content">
+      <table class="table_box">
+    <tr>
+      <th>Model</th>
+      <th>ABC Price</th>
+      <th>Bad OEM Lcd</th>
+      <th class="working_lcd">Working Copy lCD</th>
+    </tr>
+    <tr>
+      <td><b>Galaxy S3</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Galaxy S4</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Galaxy S5</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>  <b>Galaxy S6</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Galaxy S7</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Galaxy S8</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Galaxy S9</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Galaxy S11</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Galaxy S12</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Galaxy S13</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    
+  </table>
     </div>
-
+    <div id="tab-3" class="tab-content">
+      <table class="table_box">
+    <tr>
+      <th>Model</th>
+      <th>ABC Price</th>
+      <th>Bad OEM Lcd</th>
+      <th class="working_lcd">Working Copy lCD</th>
+    </tr>
+    <tr>
+      <td><b>Iphone 12 Pro Max</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone 12/12 Pro </b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone 12 Mini</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>  <b>Iphone 11 Pro Max</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone 11/11 Pro Max</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone 11</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone XS Max</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone X/XS</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone XR</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><b>Iphone 8 Plus</b></td>
+      <td>140</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+    
+  </table>
+    </div>
+  </div> 
 </div>
 
 <app-footer></app-footer>

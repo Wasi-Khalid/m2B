@@ -1,13 +1,15 @@
-<div class="card card-shadow mb-4 col-12 cardStyle">
-    <div class="card-header">
-        <div class="card-title text-center">
-            Orders List
-
+<div class="">
+    <div class="my_m2b_head">
+        <div class="row">
+            <div class="col-sm-12 category_list">
+                <h2>Orders List</h2>
+            </div>
+            
         </div>
-
-    </div>
-    <div class="card-body">
-        <table class="table table-hover">
+        </div>
+    
+    <div class="card-body_">
+        <table class="table table-hover table_box">
             <thead>
                 <tr>
                     <th scope="col">Order No.</th>
@@ -20,7 +22,7 @@
             <tbody>
                 <ng-container *ngIf="isSupplierProduct">
                     <tr *ngFor="let order of orderList; let i = index;">
-                        <th scope="row">{{i+1}}</th>
+                        <td scope="row">{{i+1}}</td>
                         <td>
                             <div *ngFor="let item of order.productDetail">
                                 <h5>{{item.productName}}</h5>
@@ -56,7 +58,7 @@
                 <!-- for supplier  -->
                 <ng-container *ngIf="!isSupplierProduct">
                     <tr *ngFor="let order of supplierOrderList; let i = index;">
-                        <th scope="row">{{i+1}}</th>
+                        <td scope="row">{{i+1}}</td>
                         <td>
                             <div *ngFor="let item of order.productDetail">
                                 <h5>{{item.productName}}</h5>

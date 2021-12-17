@@ -5,6 +5,7 @@ import { OrderListService } from '../../services/order-list.service';
 import { ToastrService } from 'ngx-toastr';
 import { ReturnRequestModel } from '../../models/return-request.model';
 import { ReturnRequestService } from '../../services/return-request.service';
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 
 @Component({
   selector: 'app-return-request',
@@ -15,7 +16,7 @@ export class ReturnRequestComponent implements OnInit {
 
   productobj = new ReturnRequestModel();
   id: string;
-  orderList = [];
+  orderList : any;
   myOrdersInfo = [];
   user: any;
   constructor(
@@ -24,7 +25,7 @@ export class ReturnRequestComponent implements OnInit {
     private returnRequestService: ReturnRequestService,
     private router: Router,
     private orderListService: OrderListService,
-
+    private db: AngularFireDatabase
   ) {
     this.id = this.actRoute.snapshot.queryParamMap.get('userId');
     this.user = JSON.parse(localStorage.getItem("user"));
@@ -34,27 +35,50 @@ export class ReturnRequestComponent implements OnInit {
     this.getOrderList();
 
   }
+  updateqty(i,type)
+  {
+    console.log(type);
+    console.log((this.orderList.cart[i].rqty >= 1));
+    console.log(this.orderList.cart[i].rqty);
+    if(type == 'p' && this.orderList.cart[i].rqty < this.orderList.cart[i].qty)
+    {
+      this.orderList.cart[i].rqty = this.orderList.cart[i].rqty+1;
+    }
+    else if(this.orderList.cart[i].rqty >= 1 && type == 'm')
+    {
+      this.orderList.cart[i].rqty = this.orderList.cart[i].rqty - 1;
+    }
+
+  }
   getOrderList() {
     // Use snapshotChanges().map() to store the key
-    console.log(this.id)
-    this.orderListService.getOrderListsByOption("id", this.id).snapshotChanges()
-      .pipe(
-        map(changes =>
-          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-        )
+    let list = this.db.list('/orderLists');
+    let t = 0;
+    list.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )
-      .subscribe(order => {
-        console.log(order)
-        this.orderList = order;
-
-      });
+    ).subscribe(orderLists => {
+      let luid  = localStorage.getItem('login');
+      orderLists.forEach((currentValue, index) => {
+        if( currentValue['key'] && currentValue['key'] == this.id)
+        { 
+          currentValue['cart'].forEach((currentValue1, index1) => {
+            currentValue['cart'][index1]['rqty'] = 0;
+          });
+          this.orderList = currentValue;
+          
+        }
+          
+        });
+    });
   }
 
   removeProduct(index) {
     this.orderList[0].productDetail.splice(index, 1);
   }
-  removeSKU(i, x) {
-    this.orderList[0].productDetail[i].productSKU.splice(x, 1);
+  remove(x) {
+    this.orderList.cart[x].qty = 0; 
   }
   makeid() {
     var text = "";
@@ -66,15 +90,12 @@ export class ReturnRequestComponent implements OnInit {
     return text;
   }
   sendRequest() {
-    let total = 0;
-    let priceTotal = 0;
-    delete this.orderList[0].key;
-    this.productobj = this.orderList[0];
-
-    this.createOrderForSuplliers();
-
-    this.toastrService.success("Your Request is Send!");
-    this.router.navigateByUrl('/myOrderList');
+    let r = this.db.list('/returnRequest').push(this.orderList);
+    if(r)
+    {
+      this.toastrService.success("Your Request is Send!");
+      this.router.navigateByUrl('/myOrderList');
+    }
 
   }
   sendData(prod, email, total) {

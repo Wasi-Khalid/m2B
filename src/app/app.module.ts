@@ -87,6 +87,9 @@ import { EmailService } from './services/email.service';
 import { CashoutRequestService } from './services/cashout-request.service';
 import { CashoutRequestComponent } from './pages/admin/cashout-request/cashout-request.component';
 import { ManageUserService } from './services/manage-user.service';
+import { OrdersComponent } from './common/orders/orders.component';
+import { Mym2bComponent } from './pages/mym2b/mym2b.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
  
@@ -146,7 +149,10 @@ import { ManageUserService } from './services/manage-user.service';
     ReturnRequestForSupplierComponent,
     ItemSoldComponent,
     SupplierCashoutFinalComponent,
-    CashoutRequestComponent
+    CashoutRequestComponent,
+    OrdersComponent,
+    Mym2bComponent,
+    PaymentComponent
     
 
   ],

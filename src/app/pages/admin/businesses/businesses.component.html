@@ -1,7 +1,17 @@
-<div class="card card-shadow mb-4 col-12 cardStyle">
+<div class="">
+<div class="my_m2b_head">
+        <div class="row">
+            <div class="col-sm-8 category_list">
+                <h2>Business</h2>
+            </div>
+            <div class="col-sm-4 addbtn_right">
+                <a class="addBtn" [routerLink]="['/auth/options']" [queryParams]="{option:'Business'}"  ><i class="fa fa-plus"></i> Add</a>
+            </div>
+        </div>
+        </div>
 
-    <div class="card-body">
-        <table class="table table-hover">
+
+    <table class="table table-hover table_box">
             <thead>
                 <tr>
                     <th scope="col">Business ID</th>
@@ -11,25 +21,23 @@
                     <th scope="col">Option</th>
                     <th scope="col">Business Status</th>
                     <th scope="col">Action
-                        <a class="btn btn-outline-secondary addBtn" [routerLink]="['/auth/options']" [queryParams]="{option:'Business'}" style="margin-left: 70%"><i class="fa fa-plus"></i> Add</a>
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let user of users; let i = index;">
-                    <th scope="row">{{i+1}}</th>
+                    <td scope="row">{{i+1}}</td>
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.phoneNo}}</td>
                     <td>{{user.option}}</td>
-                    <td align="center"><input type="checkbox"></td>
+                    <td align="center"><input style="width:20px;height:auto;" type="checkbox"></td>
                     <td>
-                        <a class="btn btn-outline-secondary " [routerLink]="['edit-businesses']" [queryParams]="{ userId: user.key }"><i class="fa fa-pencil"></i> Edit</a>
-                        <a class="btn btn-outline-danger " (click)='deleteOneUser(user.key, user.email)'><i
-                class="fa fa-trash-o"></i> Delete</a>
+                        <a class="edit_btn " [routerLink]="['edit-businesses']" [queryParams]="{ userId: user.key }"><i class="fa fa-pencil"></i> </a>
+                        <a class="delbtn " (click)='deleteOneUser(user.key, user.email)'><i
+                class="fa fa-trash-o"></i> </a>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
 </div>

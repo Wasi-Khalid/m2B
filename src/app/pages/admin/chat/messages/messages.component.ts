@@ -66,9 +66,11 @@ export class adminMessagesComponent implements OnInit {
 
 
 
+
   }
 
   ngOnInit() {
+
     this.localStorageData = JSON.parse(localStorage.getItem("user"));
     this.ownEmail = this.localStorageData.email;
     this.actRoute.queryParams.subscribe(quer => {
@@ -99,8 +101,6 @@ export class adminMessagesComponent implements OnInit {
     } catch (err) { }
   }
   send() {
-
-
     console.log(this.chats);
     if (this.message === "") {
       console.log("Empty Message!")

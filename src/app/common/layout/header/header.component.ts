@@ -34,23 +34,22 @@ export class HeaderComponent implements OnInit {
     private db: AngularFireDatabase
     ) {
     this.tot = 0;
-    /*let list = this.db.list('/cart');
+    let list = this.db.list('/cart');
+    let t = 0;
     list.snapshotChanges().pipe(
       map(changes =>
         changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )
     ).subscribe(cart => {
-      this.cart = cart;
-      let t = 0;
       let luid  = localStorage.getItem('login');
-      this.cart.forEach((currentValue, index) => {
-        if(currentValue.uid == luid)
-        {
-          this.tot = this.tot +1;
+      this.tot = 0;
+      cart.forEach((currentValue, index) => {
+        if( currentValue['uid'] && currentValue['uid'] == luid)
+        { 
+          this.tot = this.tot+ 1;
         }
         });
-
-    });*/
+    });
     console.log("count="+this.tot);
   }
 
@@ -69,7 +68,9 @@ export class HeaderComponent implements OnInit {
   logout() {
     console.log(this.previousAction);
     localStorage.clear();
-    this.router.navigate(['/auth']);
+    this.router.navigate(['auth']);
+    return false;
+    /*
      if (this.previousAction == "Log Out") {
       localStorage.clear();
       this.authService.doLogout()
@@ -84,7 +85,7 @@ export class HeaderComponent implements OnInit {
     } else {
       console.log(this.previousLink);
       this.router.navigateByUrl(this.previousLink)
-    }
+    }*/
   }
 
   toggleMenu() {

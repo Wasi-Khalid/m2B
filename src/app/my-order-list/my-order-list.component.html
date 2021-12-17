@@ -11,7 +11,7 @@
                     <div id="accordion">
                         
                         
-                        <div class="" *ngFor="let order of myOrdersInfo; let i = index;">
+                        <div class="zigzag_Bg" *ngFor="let order of myOrdersInfo; let i = index;">
                             <div class="orders_listing onclick " role="tab" id="headingOne" (click)="(clicked === order)? clicked = '':clicked = order">
                                 <div class="row ">
                                 <div class="col-sm-6 order_no">
@@ -44,30 +44,35 @@
                                 </div>
 
                                 <div *ngIf="order.cart">
-                                    <i class="fa fa-star star"></i>
                                 </div>
-                                <div class="card-block" *ngFor="let item of order.cart">
+                                <div class="card-block">
                                     <div class="regular_lcd">
-                                        <h5 >{{item.product.productName}}</h5>
                                     </div>
 
-                                    <table class="table table-hover table_box">
+                                    <table class="table table-hover table_box product_table">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Product Name</th>
-                                                <th scope="col">SKU Name</th>
-                                                <th scope="col">Price</th>
                                                 <th scope="col">Quantity</th>
-                                                <th scope="col">Attribute</th>
+                                                <th scope="col">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let p of order.cart; let i = index;">
-                                                <td scope="col">{{p.product.product_name}}</td>
-                                                <td scope="col"> {{p.sku.SKU_Name}}</td>
-                                                <td scope="col">$ {{p.sku.SKU_Price}}</td>
-                                                <td scope="col">{{p.qty}}</td>
-                                                <td scope="col">{{p.astr}}</td>
+                                                <td scope="col" class="pro_gap"><img width="40" height="40" class="pro_img" src="{{p.product.path}}" />{{p.product.product_name}}
+                                                    
+                                                    <div class="order_attributes">
+                                                        <ng-container  *ngFor="let attr of p.attributes;let i = index;">
+                                                        <a *ngIf="attr.chosen">{{attr.chosen}}</a>
+                                                    </ng-container>
+
+                                                    </div>
+                                                    
+                                                    <span>{{p.sku.SKU_Name}}</span>
+
+                                                </td>
+                                                <td scope="col">${{p.sku.SKU_Price | number : '1.2-2'}}x{{p.qty}}</td>
+                                                <td scope="col">${{p.qty*p.sku.SKU_Price | number : '1.2-2'}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -77,41 +82,31 @@
                                     <div>
 
                                         <div class="delivery_details">
-                                            <h4>Delivery Detail</h4>
-                                            <!-- <p>
-                                                <b>Tracking Number:</b>
-                                                <span (click)="setUrl(track.trackingNo , track.courierInfo )" style="color:dodgerblue; cursor: pointer">
-                                                    {{track.trackingNo}}
-                                                </span>
-                                            </p> -->
-
-                                            <!-- <p>
-                                                <b>Courier : </b>
-                                                <span>
-                                                {{urls[track.courierInfo-1]?.name}}</span>
-                                            </p>
-                                            <p> 
-                                                <b>Time Est :</b>
-                                                <span >
-                                                {{track.timeEst}}
-                                            </span>
-                                            </p>-->
-                                            <p>
-                                                <b>Deliver Address:</b>
-                                                <span class="">
-                                                {{order.saddress.address}}
-                                            </span>
-                                            </p>
-                                        </div>
+        <h4>Delivery Detail</h4>
+        <p><b>Tracking Number:</b> <span>8927766094</span></p>
+        <p *ngIf="order.shipping"><b>Courier :</b> <span>{{order.shipping.name}}</span></p>
+        <p *ngIf="order.pmethod"><b>Payment method :</b> <span>{{pmethod(order.pmethod)}}</span></p>
+        <p><b>Time Est :</b> <span>4</span></p>
+        <p *ngIf="order.saddress.fname"><b>Name:</b> <span>{{order.saddress.fname}} {{ order.saddress.lname }}</span></p>
+        <p *ngIf="order.saddress.email"><b>Email:</b> <span>{{order.saddress.email}}</span></p>
+        <p *ngIf="order.saddress.phone"><b>Phone:</b> <span>{{order.saddress.phone}}</span></p>
+        <p *ngIf="order.saddress.town"><b>Town:</b> <span>{{order.saddress.town}}</span></p>
+        <p *ngIf="order.saddress.state"><b>State:</b> <span>{{order.saddress.state}}</span></p>
+        <p *ngIf="order.saddress.postcode"><b>Postal Code:</b> <span>{{order.saddress.postcode}}</span></p>
+        <p *ngIf="order.saddress.country"><b>Country:</b> <span>{{order.saddress.country}}</span></p>
+        <p *ngIf="order.saddress.address"><b>Deliver Address:</b> <span>{{order.saddress.address}}</span></p>
+        
+      </div>
                                         
                                     </div>
 
                                     <div class="row">
                                         <div class="col-sm-6 total_price">
-                                            <h6 style="color: #232323;">Total Price: $ {{order.tot}} </h6>
+                                            <h6 style="color: #232323;">Total Price: ${{order.tot | number : '1.2-2'}} </h6>
                                         </div>
                                         <div class="col-sm-6 open_return">
-                                        <a style="border:none;" class="btn btn-outline-secondary addBtn" [routerLink]="['returnRequest']" [queryParams]="{ userId: order.id }">
+                                        <a style="border:none;" class="btn btn-outline-secondary addBtn" href="#/myOrderList/returnRequest?userId={{order.
+                                        key}}">
                                           Open Return Request</a>
                                           </div>
                                     </div>

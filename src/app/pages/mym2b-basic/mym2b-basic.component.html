@@ -1,59 +1,134 @@
 <app-header currentAction="Credit" currentLink="/mym2bCredit" previousAction="Home" previousLink="/home/products">
 </app-header>
-<div class="container">
-    <div class="row mt-3" style=" text-align: center;">
-        <div class="col-12">
-            <h3>My M2B </h3>
-        </div>
+<div class="status_wrap" id="m2b_wrap" style="background:#fff;">
+  <div class="container">
+    <div class="my_m2b_head">
+      <h2>My M2B</h2>
     </div>
+    <div class="my_m2b">
+      <ul>
+        <li class="purchase_bg">
+          <h3>{{purchases}}</h3>
+          <h5>Purchases</h5>
+          <i class="fa fa-shopping-cart"></i>
+        </li>
+        <li class="account_bg">
+          <h3>Account Balance</h3>
+          <h5>$ {{credit | number : '1.2-2'}}</h5>
+          <i class="fa fa-calendar"></i>
+        </li>
+      </ul>
 
-    <div class="row mt-3">
-        <div class="col-12">
-            <div class="card bg-success border-0 text-light pt-3 pb-3 h-100">
-                <div class="card-body ">
-                    <div class="row">
-                        <div class=" col-9">
-                            <h6 class="m-0 text-light">{{purchases}}</h6>
-                            <p class="f12 mb-0">Purchases</p>
-                        </div>
-                        <div class=" col-3">
-                            <i class="icon-handbag f30"></i>
+    <div class="my_m2b_head">
+      <h2>My Orders</h2>
+    </div>
+        <div class="zigzag_Bg" *ngFor="let order of myOrdersInfo; let i = index;">
+                            <div class="orders_listing onclick " role="tab" id="headingOne" (click)="(clicked === order)? clicked = '':clicked = order">
+                                <div class="row ">
+                                <div class="col-sm-6 order_no">
+                                  <b>Order No {{i+1}}</b>
+                                  <p class="date-order">{{order.date}} </p>
+                                    
+                                </div>
+                                <div class="col-sm-6 shipped_down">
+                                    
+                                    <b class="status" [ngStyle]="{'color': order.status === 'Shipped' ? 'green' : 'red' }">{{order.status}} <i class="fa fa-angle-down icon-s" [class.animat]="clicked === order"></i></b>
+                                </div>
+                                </div>
+
+                                
+                            </div>
+
+                            <div id="collapseOne" class="collapse shipped_box dropdown_box" [class.show]="clicked === order" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+
+                                <div class="contact_seller">
+
+                                    <!-- <select class="btn btn-outline-secondary btn-sm dropdown-toggle form-control addBtn btn-top"  (change)="onContact($event.target.value)">
+                                    <option value="0">
+                                      Contact Seller
+                                    </option>
+                                    <option *ngFor="let subOrder of order.supplierOrderInfo ; let i = index;"
+                                      [value]="subOrder.supplierOrderId">
+                                      Seller {{i+1}}
+                                    </option>
+                                  </select> -->
+                                </div>
+
+                                <div *ngIf="order.cart">
+                                </div>
+                                <div class="card-block">
+                                    <div class="regular_lcd">
+                                    </div>
+
+                                    <table class="table table-hover table_box product_table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Product Name</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let p of order.cart; let i = index;">
+                                                <td scope="col" class="pro_gap"><img width="40" height="40" class="pro_img" src="{{p.product.path}}" />{{p.product.product_name}}
+                                                    
+                                                    <div class="order_attributes">
+                                                        <ng-container  *ngFor="let attr of p.attributes;let i = index;">
+                                                        <a *ngIf="attr.chosen">{{attr.chosen}}</a>
+                                                    </ng-container>
+
+                                                    </div>
+                                                    
+                                                    <span>{{p.sku.SKU_Name}}</span>
+
+                                                </td>
+                                                <td scope="col">${{p.sku.SKU_Price | number : '1.2-2'}}x{{p.qty}}</td>
+                                                <td scope="col">${{p.qty*p.sku.SKU_Price | number : '1.2-2'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                 <!--ye htnml ha -->
+
+                                    
+                                    <div>
+
+                                        <div class="delivery_details">
+        <h4>Delivery Detail</h4>
+        <p><b>Tracking Number:</b> <span>8927766094</span></p>
+        <p *ngIf="order.shipping"><b>Courier :</b> <span>{{order.shipping.name}}</span></p>
+        <p *ngIf="order.pmethod"><b>Payment method :</b> <span>{{pmethod(order.pmethod)}}</span></p>
+        <p><b>Time Est :</b> <span>4</span></p>
+        <p *ngIf="order.saddress.fname"><b>Name:</b> <span>{{order.saddress.fname}} {{ order.saddress.lname }}</span></p>
+        <p *ngIf="order.saddress.email"><b>Email:</b> <span>{{order.saddress.email}}</span></p>
+        <p *ngIf="order.saddress.phone"><b>Phone:</b> <span>{{order.saddress.phone}}</span></p>
+        <p *ngIf="order.saddress.town"><b>Town:</b> <span>{{order.saddress.town}}</span></p>
+        <p *ngIf="order.saddress.state"><b>State:</b> <span>{{order.saddress.state}}</span></p>
+        <p *ngIf="order.saddress.postcode"><b>Postal Code:</b> <span>{{order.saddress.postcode}}</span></p>
+        <p *ngIf="order.saddress.country"><b>Country:</b> <span>{{order.saddress.country}}</span></p>
+        <p *ngIf="order.saddress.address"><b>Deliver Address:</b> <span>{{order.saddress.address}}</span></p>
+        
+      </div>
+                                        
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6 total_price">
+                                            <h6 style="color: #232323;">Total Price: ${{order.tot | number : '1.2-2'}} </h6>
+                                        </div>
+                                        <div class="col-sm-6 open_return">
+                                        <a style="border:none;" class="btn btn-outline-secondary addBtn" href="#/myOrderList/returnRequest?userId={{order.
+                                        key}}">
+                                          Open Return Request</a>
+                                          </div>
+                                    </div>
+
+                                    
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="row mt-3">
-        <div class="col-12">
-            <div class="card bg-info border-0 text-light pt-3 pb-3 h-100">
-                <div class="card-body ">
-                    <div class="row">
-                        <div class=" col-9">
-                            <h6 class="m-0 text-light">Account Balance</h6>
-                            <p class="f12 mb-0">$ {{credit | number : '1.2-2'}}</p>
-                        </div>
-                        <div class=" col-3">
-                            <i class="icon-calculator f30"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="row mt-4" style="text-align: center;">
-        <div class="col-12">
-            <button type="btn btn-primary" class="btn btn-primary btn-lg" [routerLink]="['/mym2bCredit']"> <img
-                    src="../../../assets/img/logo.png" alt="">Purchase M2B Credit</button>
-
-        </div>
-    </div>
-
+  </div> 
 </div>
 <app-footer></app-footer>

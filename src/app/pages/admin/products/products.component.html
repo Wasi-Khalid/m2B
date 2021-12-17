@@ -1,11 +1,19 @@
-<div class="card card-shadow mb-4 col-12 cardStyle">
-    <div class="card-header">
-        <div class="card-title text-center">
-            Products List
+<div class="">
+    <div class="my_m2b_head">
+        <div class="row">
+            <div class="col-sm-8 category_list">
+                <h2>Categories List</h2>
+            </div>
+            <div class="col-sm-4 addbtn_right">
+                <a class="addBtn" [routerLink]="['add-category']" ><i class="fa fa-plus"></i> Add</a>
+            </div>
         </div>
-    </div>
-    <div class="card-body">
-        <table class="table table-hover">
+        </div>
+
+
+
+    
+    <table class="table table-hover table_box">
             <thead>
                 <tr>
                     <th scope="col">No.</th>
@@ -16,8 +24,7 @@
                     <th scope="col">Product Category</th>
                     <th scope="col" style=" text-align: center;">SKU Details</th>
                     <th scope="col">Action
-                        <a class="btn btn-outline-secondary addBtn" [routerLink]="['add-product']"><i class="fa fa-plus"></i>
-              Add</a>
+                        
                     </th>
                 </tr>
             </thead>
@@ -25,7 +32,7 @@
                 <ng-container *ngIf="!isSupplierProduct">
                     <tr *ngFor="let product of myProduct; let i = index;">
 
-                        <th scope="row">{{i+1}}</th>
+                        <td scope="row">{{i+1}}</td>
                         <td>{{product.product_name}}</td>
                         <td align="center">
                             <img src="{{product.path}}" alt="None">
@@ -54,9 +61,9 @@
                         </td>
                         <td>
 
-                            <a class="btn btn-outline-secondary" [routerLink]="['edit-product/']" [queryParams]="{ productId: product.key }"><i class="fa fa-pencil"></i> Edit</a>
-                            <a class="btn btn-outline-danger" (click)='deleteProductOne(product.key)'><i class="fa fa-trash-o"></i>
-                Delete</a>
+                            <a class="edit_btn" [routerLink]="['edit-product/']" [queryParams]="{ productId: product.key }"><i class="fa fa-pencil"></i> </a>
+                            <a class="delbtn" (click)='deleteProductOne(product.key)'><i class="fa fa-trash-o"></i>
+                </a>
                         </td>
                     </tr>
                 </ng-container>
@@ -64,7 +71,7 @@
                 <ng-container *ngIf="isSupplierProduct">
                     <tr *ngFor="let product of products; let i = index;">
 
-                        <th scope="row">{{i+1}}</th>
+                        <td scope="row">{{i+1}}</td> 
                         <td>{{product.product_name}}</td>
                         <td align="center">
                             <img src="{{product.path}}" alt="None">
@@ -93,14 +100,13 @@
                         </td>
                         <td>
 
-                            <a class="btn btn-outline-secondary" [routerLink]="['edit-product/']" [queryParams]="{ productId: product.key }"><i class="fa fa-pencil"></i> Edit</a>
-                            <a class="btn btn-outline-danger" (click)='deleteProductOne(product.key)'><i class="fa fa-trash-o"></i>
-                Delete</a>
+                            <a class="edit_btn" [routerLink]="['edit-product/']" [queryParams]="{ productId: product.key }"><i class="fa fa-pencil"></i> </a>
+                            <a class="delbtn" (click)='deleteProductOne(product.key)'><i class="fa fa-trash-o"></i>
+                </a>
                         </td>
                     </tr>
                 </ng-container>
 
             </tbody>
         </table>
-    </div>
 </div>

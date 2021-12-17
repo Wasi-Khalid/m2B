@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { SupplierService } from '../../services/supplier.service';
 // import { HttpClient } from 'selenium-webdriver/http';
 import { Http } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderListService } from '../../services/order-list.service';
 
@@ -21,14 +22,20 @@ export class Mym2bBasicComponent implements OnInit {
   credit: number;
   users: any;
   purchases = 0;
+  buy_back: any;
 
-  constructor(private toastrService: ToastrService, private orderListService: OrderListService, private supplierSer: SupplierService, private fb: FormBuilder, ) {
+  constructor(private toastrService: ToastrService, private orderListService: OrderListService, private supplierSer: SupplierService, private fb: FormBuilder,private actRoute: ActivatedRoute, ) {
+    this.buy_back = 0;
+    this.buy_back = this.actRoute.snapshot.queryParamMap.get('buy_back');
+    console.log(this.buy_back);
 
     this.supplierSer.needCredit = 0;
   }
-
+localStorageData : any;
   ngOnInit() {
     this.ownEmail = JSON.parse(localStorage.getItem("user")).email;
+    this.localStorageData = JSON.parse(localStorage.getItem("user"));
+    this.uid = localStorage.getItem('login');
     this.getUsersList();
     this.getOrderList();
 
@@ -49,10 +56,24 @@ export class Mym2bBasicComponent implements OnInit {
     });
 
   }
+  pmethod(id)
+  {
+    if(id == 'ccard')
+    {
+      return 'Credit card';
+    }
+    else if(id == 'credit') 
+    {
+      return 'M2b Credit';
+    }
+  }
+  myOrdersInfo : any;
+  uid : any;
 
   getOrderList() {
     // Use snapshotChanges().map() to store the key
-
+    // alert(this.uid);
+    this.purchases = 0;
     this.orderListService.getOrderLists().snapshotChanges()
       .pipe(
         map(changes =>
@@ -60,17 +81,21 @@ export class Mym2bBasicComponent implements OnInit {
         )
       )
       .subscribe(orderList => {
-        this.purchases = 0;
-        orderList.forEach(product => {
-
-          if (product.userEmail == this.ownEmail) {
-
-            this.purchases++;
-
-          }
+        let or = [];
+        orderList.forEach((currentValue, index) => {
+            if(currentValue['uid'] == this.uid)
+            {
+              this.purchases++;
+              or.push(currentValue);
+            }
         });
+        or.reverse();
+        this.myOrdersInfo = or;
+        console.log("myOrdersInfo");
+    console.log(or);
       });
 
+    
   }
 
 

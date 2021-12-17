@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import { map } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,17 +15,43 @@ import { Http, URLSearchParams } from '@angular/http';
 import { EmailService } from '../../../services/email.service';
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+
+declare var SqPaymentForm: any;
+
 @Component({
   selector: 'app-final-cart',
   templateUrl: './final-cart.component.html',
   styleUrls: ['./final-cart.component.css']
 })
-export class FinalCartComponent implements OnInit, OnDestroy {
+export class FinalCartComponent implements OnInit, OnDestroy, AfterViewInit{
 
-  appUrl : string = environment.appUrl;
-  checkChild = "email";
+  appUrl: string = environment.appUrl;
+  checkChild = 'email';
   ownEmail: string;
-  isAddedCheck = "isAdded";
+  pmethod: string;
+  thank: any;
+  cerror: any;
+  paymentForm: any;
+  formLoaded =  false;
+  pchange() {
+    if (this.pmethod === 'credit') {
+      // alert(this.credit);
+      if (this.credit < this.tot) {
+        this.cerror = 'Your have insufecient balence!';
+
+      }
+    }
+
+  }
+  show_accor(i) {
+    if (this.acord[i]) {
+      this.acord[i] = 0;
+    } else {
+      this.acord[i] = 1;
+    }
+  }
+  acord  = new Array();
+  isAddedCheck = 'isAdded';
   selectProduct: any;
   supplierOrder = new Array();
   totalQtPrice: number;
@@ -35,37 +61,68 @@ export class FinalCartComponent implements OnInit, OnDestroy {
   productobj = new OrderListModel();
   supplierProductobj = new SupplierOrderListModel();
 
-  supplierProdstruct = { productName: "", productPrice: 0, quantity: 0, supplierId: "", addOn: 0 };
+  supplierProdstruct = { productName: '', productPrice: 0, quantity: 0, supplierId: '', addOn: 0 };
+  removecartitem(ci) {
+    const tutorialsRef = this.db.list('cart');
+    const amount = (this.cart[ci].qty * this.cart[ci].sku.SKU_Price);
+    this.tot = this.tot - amount;
+    const r = tutorialsRef.remove(this.cart[ci].key);
+    this.calculateTotal();
+  }
   address = {
-    'fname' :"",
-    'lname' :"",
-    'email' :"",
-    'phone' :"",
-    'address' :"",
-    'town' :"",
-    'state' :"",
-    'postcode' :"",
-    'country' :"United States",
+    'fname' : '',
+    'lname' : '',
+    'email' : '',
+    'phone' : '',
+    'address' : '',
+    'town' : '',
+    'state' : '',
+    'postcode' : '',
+    'country' : 'United States',
+
+  };
+  address_error = {
+    'fname' : '1',
+    'lname' : '1',
+    'email' : '1',
+    'phone' : '1',
+    'address' : '1',
+    'town' : '1',
+    'state' : '1',
+    'postcode' : '1',
+    'country' : '1',
 
   };
   saddress = {
-    'fname' :"",
-    'lname' :"",
-    'email' :"",
-    'phone' :"",
-    'address' :"",
-    'town' :"",
-    'state' :"",
-    'postcode' :"",
-    'country' :"United States",
+    'fname' : '',
+    'lname' : '',
+    'email' : '',
+    'phone' : '',
+    'address' : '',
+    'town' : '',
+    'state' : '',
+    'postcode' : '',
+    'country' : 'United States',
 
   };
-  cart : any;
-  userId : any;
-  sameship : any;
-  save_next : any;
-  shipping_methods : any;
-  smethod : any;
+  saddress_error = {
+    'fname' : '1',
+    'lname' : '1',
+    'email' : '1',
+    'phone' : '1',
+    'address' : '1',
+    'town' : '1',
+    'state' : '1',
+    'postcode' : '1',
+    'country' : '1',
+
+  };
+  cart: any;
+  userId: any;
+  sameship: any;
+  save_next: any;
+  shipping_methods: any;
+  smethod: any;
   constructor(
     private actRoute: ActivatedRoute,
     private toastrService: ToastrService,
@@ -78,8 +135,14 @@ export class FinalCartComponent implements OnInit, OnDestroy {
     private supplierSer: SupplierService,
     private db: AngularFireDatabase
   ) {
+    this.pmethod = 'ccard';
+    this.acord['acc1'] = 1;
+    this.acord['acc2'] = 1;
+    this.acord['acc3'] = 1;
+    this.acord['acc4'] = 1;
     this.sameship = true;
     this.samount = 0;
+    this.thank = 0;
     this.save_next = false;
     this.userId = localStorage.getItem('login');
     let list = this.db.list('/cart');
@@ -104,210 +167,360 @@ export class FinalCartComponent implements OnInit, OnDestroy {
     this.getUserByOption();
 
   }
-  checkout()
-  {
-    let today = new Date();
-let dd = String(today.getDate()).padStart(2, '0');
-let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-let yyyy = today.getFullYear();
+  checkout() {
+    let remain = 0;
 
-let t  = dd + '/' + mm + '/' + yyyy;
+    if (this.tot <= 0) {
+      return 0;
+     }
+    if (this.sameship) {
+      this.saddress = this.address;
+     }
+    //apply validation
+    let error = 0;
+    if (this.pmethod == 'credit') {
+      // alert(this.credit);
+      if (this.credit < this.tot) {
+        this.cerror = 'Your have insufecient balence!';
+        error = 1;
+        alert(this.cerror);
 
-    let lcart = [];
+      } else {
+        remain = this.credit - this.tot;
+      }
+    }
+    for (const key in this.address) {
+    const value = this.address[key];
+    if (!value) {
+      error = 1;
+      this.address_error[key] = 0;
+    }
+}
+
+    //apply validation
+    if (!error) {
+    const today = new Date();
+const dd = String(today.getDate()).padStart(2, '0');
+const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+const yyyy = today.getFullYear();
+
+const t  = dd + '/' + mm + '/' + yyyy;
+
+    const lcart = [];
     this.cart.forEach((currentValue, index) => {
-        if(currentValue.uid == this.userId)
-        {
+        if (currentValue.uid == this.userId) {
           lcart.push(currentValue);
         }
         });
-     if(this.sameship)
-     {
-      this.saddress = this.address;
-     }
-     if(this.save_next)
-     {
-      let us = Object.keys(this.user).map(key => ({type: key, value: this.user[key]}));
-      us['future'] = {
-        'address':this.address,
-        'saddress':this.saddress,
-        'save_next':this.save_next,
-        'sameship':this.sameship,
+
+
+    const order = {
+      'date': t,
+      'uid': this.userId,
+      'tot': this.tot,
+      'cart': lcart,
+      'address': this.address,
+      'saddress': this.saddress,
+      'status': 'Pending',
+    };
+    if (this.save_next) {
+      console.log(this.user);
+      this.user.future = {
+        'address': this.address,
+        'saddress': this.saddress,
+        'save_next': this.save_next,
+        'sameship': this.sameship,
       };
 
-      console.log(us);
 
-
-           let r = this.db.list('/users').update(this.userId, us);
+           const r = this.db.list('/users').update(this.userId, this.user);
+           console.log(r);
      }
-
-    let order = {
-      'date':t,
-      'uid':this.userId,
-      'tot':this.tot,
-      'cart':lcart,
-      'address':this.address,
-      'saddress':this.saddress,
-      'status':'Pending',
-    };
-    if(this.smethod)
-    {
-    order['shipping'] = this.shipping_methods[this.smethod];
-  }
+     if (remain) {
+      this.user.credit = remain;
+      const r = this.db.list('/users').update(this.userId, this.user);
+           console.log('credit update');
+           console.log(r);
+     }
+    if (this.smethod) {
+      order['shipping'] = this.shipping_methods[this.smethod];
+    }
+    if (this.pmethod) {
+      order['pmethod'] = this.pmethod;
+    }
 
 
     console.log(order);
-    let r = this.db.list('/orderLists').push(order);
-    if(r)
-    {
+    const r = this.db.list('/orderLists').push(order);
+    if (r) {
       this.cart.forEach((currentValue, index) => {
-        if(currentValue.uid == this.userId)
-        {
-          let tutorialsRef = this.db.list('cart');
-    let r = tutorialsRef.remove(currentValue.key);
+        if (currentValue.uid == this.userId) {
+          const tutorialsRef = this.db.list('cart');
+    const r = tutorialsRef.remove(currentValue.key);
           lcart.push(currentValue);
+
         }
         });
-      alert('order create successfully!');
+      this.thank = 1;
+      return 0;
 
     }
     }
-  stot : any;
-  tot : any;
-  calculateTotal()
-  {
+  }//checkout function end
+  stot: any;
+  tot: any;
+  calculateTotal() {
     this.tot = 0;
     this.stot = 0;
-    this.cart.forEach((currentValue, index) => {
-        if(currentValue.uid == this.userId)
-        {
-          console.log(currentValue.sku.SKU_Price+"x"+currentValue.qty);
-          console.log((currentValue.sku.SKU_Price * currentValue.qty));
-          this.tot = this.tot + (currentValue.sku.SKU_Price * currentValue.qty);
-          console.log("I m here"+this.tot);
-          this.stot = this.tot;
-          this.tot = Number(this.tot) +Number(this.samount);
-        }
-        });
+    if (this.cart) {
+      this.cart.forEach((currentValue, index) => {
+          if (currentValue.uid == this.userId) {
+            console.log(currentValue.sku.SKU_Price + 'x' + currentValue.qty);
+            console.log((currentValue.sku.SKU_Price * currentValue.qty));
+            this.tot = this.tot + (currentValue.sku.SKU_Price * currentValue.qty);
+            console.log('I m here' + this.tot);
+            this.stot = this.tot;
+            this.tot = Number(this.tot) + Number(this.samount);
+          }
+          });
+      }
+      this.tot = this.tot + this.samount;
   }
-  updateqty(i,type)
-  {
-    if(type == 'm')
-    {
-      this.cart[i].qty= this.cart[i].qty -1;
+  updateqty(i, type) {
+    if (type == 'd') {
+    if (this.cart[i].sku['SKU_Quantity'] && this.cart[i].qty) {
+      if (this.cart[i].qty >= this.cart[i].sku['SKU_Quantity']) {
+        this.cart[i].qty = this.cart[i].sku['SKU_Quantity'];
+        this.toastrService.info(' Sorry stock not avalible!');
+      }
+    }
+    return 0;
+  }
+    if (type == 'm') {
+      this.cart[i].qty = this.cart[i].qty - 1;
 
+    } else {
+      this.cart[i].qty = this.cart[i].qty + 1;
     }
-    else{
-      this.cart[i].qty= this.cart[i].qty +1;
+
+    if (this.cart[i].qty < 0) {
+      this.cart[i].qty = 0;
     }
     this.calculateTotal();
   }
-  orderList : any;
-  ngOnInit() {
-    // this.getCurrentUserInfo();
-    this.orderList = JSON.parse(localStorage.getItem('orderData'));
-    this.calculateTotal();
-  }
-  samount :any;
-  shipping()
-  {
+  orderList: any;
+
+    ngOnInit() {
+        this.orderList = JSON.parse(localStorage.getItem('orderData'));
+        this.calculateTotal();
+        // Set the application ID
+        const applicationId = 'sandbox-sq0idb-k4hnHREFEoRrPC_7uXZV-Q';
+
+        // Set the location ID
+        const locationId = 'CBASELjav8kAOzgP4SZlbX46e_IgAQ';
+        this.paymentForm = new SqPaymentForm({
+            autoBuild: false,
+            // Initialize the payment form elements
+            applicationId: applicationId,
+            locationId: locationId,
+            inputClass: 'sq-input',
+
+            // Customize the CSS for SqPaymentForm iframe elements
+            inputStyles: [{
+                fontSize: '.9em'
+            }],
+
+
+
+            // Initialize the credit card placeholders
+            cardNumber: {
+                elementId: 'sq-card-number',
+                placeholder: '•••• •••• •••• ••••'
+            },
+            cvv: {
+                elementId: 'sq-cvv',
+                placeholder: 'CVV'
+            },
+            expirationDate: {
+                elementId: 'sq-expiration-date',
+                placeholder: 'MM/YY'
+            },
+            postalCode: {
+                elementId: 'sq-postal-code'
+            },
+
+            // SqPaymentForm callback functions
+            callbacks: {
+
+                /*
+                 * callback function: methodsSupported
+                 * Triggered when: the page is loaded.
+                 */
+                methodsSupported: function (methods: any) {
+
+                    const applePayBtn = document.getElementById('sq-apple-pay');
+                    const applePayLabel = document.getElementById('sq-apple-pay-label');
+                    const masterpassBtn = document.getElementById('sq-masterpass');
+                    const masterpassLabel = document.getElementById('sq-masterpass-label');
+
+                    // Only show the button if Apple Pay for Web is enabled
+                    // Otherwise, display the wallet not enabled message.
+                    if (methods.applePay === true) {
+                        // @ts-ignore
+                        applePayBtn.style.display = 'inline-block';
+                        // @ts-ignore
+                        applePayLabel.style.display = 'none' ;
+                    }
+                    // Only show the button if Masterpass is enabled
+                    // Otherwise, display the wallet not enabled message.
+                    if (methods.masterpass === true) {
+                        // @ts-ignore
+                        masterpassBtn.style.display = 'inline-block';
+                        // @ts-ignore
+                        masterpassLabel.style.display = 'none';
+                    }
+                },
+
+                /*
+                 * callback function: createPaymentRequest
+                 * Triggered when: a digital wallet payment button is clicked.
+                 */
+                createPaymentRequest: function () {
+                    // The payment request below is provided as
+                    // guidance. You should add code to create the object
+                    // programmatically.
+                    return {
+                        requestShippingAddress: true,
+                        currencyCode: 'USD',
+                        countryCode: 'US',
+                        total: {
+                            label: 'Hakuna',
+                            amount: '{{REPLACE_ME}}',
+                            pending: false,
+                        },
+                        lineItems: [
+                            {
+                                label: 'Subtotal',
+                                amount: '{{REPLACE_ME}}',
+                                pending: false,
+                            },
+                            {
+                                label: 'Shipping',
+                                amount: '{{REPLACE_ME}}',
+                                pending: true,
+                            },
+                            {
+                                label: 'Tax',
+                                amount: '{{REPLACE_ME}}',
+                                pending: false,
+                            }
+                        ]
+                    };
+                },
+
+                /*
+                 * callback function: cardNonceResponseReceived
+                 * Triggered when: SqPaymentForm completes a card nonce request
+                 */
+                cardNonceResponseReceived: function (errors: any, nonce: any, cardData: any)  {
+                    if (errors) {
+                        // Log errors from nonce generation to the Javascript console
+                        console.log('Encountered errors:');
+                        errors.forEach(function(error: any) {
+                            console.log('  ' + error.message);
+                        });
+
+                        return;
+                    }
+
+                    alert('Nonce received: ' + nonce); /* FOR TESTING ONLY */
+
+                    // Assign the nonce value to the hidden form field
+                    // document.getElementById('card-nonce').value = nonce;
+                    //needs to be extracted from the
+                    (<HTMLInputElement>document.getElementById('card-nonce')).value = nonce; //casting so .value will work
+                    //get this value from the database when the user is logged in
+                    (<HTMLInputElement>document.getElementById('sq-id')).value = 'CBASEC8F-Phq5_pV7UNi64_kX_4gAQ';
+
+                    // POST the nonce form to the payment processing page
+                    (<HTMLFormElement>document.getElementById('nonce-form')).submit();
+
+                },
+
+                /*
+                 * callback function: unsupportedBrowserDetected
+                 * Triggered when: the page loads and an unsupported browser is detected
+                 */
+                unsupportedBrowserDetected: function() {
+                    /* PROVIDE FEEDBACK TO SITE VISITORS */
+                },
+
+                /*
+                 * callback function: inputEventReceived
+                 * Triggered when: visitors interact with SqPaymentForm iframe elements.
+                 */
+                inputEventReceived: function(inputEvent: any) {
+                    switch (inputEvent.eventType) {
+                        case 'focusClassAdded':
+                            /* HANDLE AS DESIRED */
+                            break;
+                        case 'focusClassRemoved':
+                            /* HANDLE AS DESIRED */
+                            break;
+                        case 'errorClassAdded':
+                            /* HANDLE AS DESIRED */
+                            break;
+                        case 'errorClassRemoved':
+                            /* HANDLE AS DESIRED */
+                            break;
+                        case 'cardBrandChanged':
+                            /* HANDLE AS DESIRED */
+                            break;
+                        case 'postalCodeChanged':
+                            /* HANDLE AS DESIRED */
+                            break;
+                    }
+                },
+
+                /*
+                 * callback function: paymentFormLoaded
+                 * Triggered when: SqPaymentForm is fully loaded
+                 */
+                paymentFormLoaded: function() {
+
+                }
+            }
+        });
+        this.paymentForm.build();
+    }
+    requestCardNonce(event: any) {
+
+        // Don't submit the form until SqPaymentForm returns with a nonce
+        event.preventDefault();
+
+        // Request a nonce from the SqPaymentForm object
+        this.paymentForm.requestCardNonce();
+    }
+    ngAfterViewInit(){}
+    loadPaymentForm() {
+        if (!this.formLoaded) {
+            this.paymentForm.build();
+            this.formLoaded = true;
+        }
+    }
+  samount: any;
+  shipping() {
     this.samount = this.shipping_methods[this.smethod].price;
     // alert(this.samount);
     this.calculateTotal();
   }
   ngOnDestroy() {
   }
-
-  /*createOrderForSuplliers() {
-    let sameProd = [];
-    let uniqueEmailValues: string[];
-    let unique = {};
-    let prodTotal = 0;
-    let supplierTotal = 0;
-    let container = {
-      productDetail: []
-    }
-    this.orderList.forEach((i) => {
-
-      if (!unique[i.supplierEmail]) {
-        unique[i.supplierEmail] = true;
-      }
-    });
-    uniqueEmailValues = Object.keys(unique);
-    console.log(uniqueEmailValues);
-    uniqueEmailValues.forEach((email) => {
-
-      this.orderList.forEach((x) => {
-
-        if (x.supplierEmail == email) {
-          sameProd.push(x);
-
-
-          x.productSKU.forEach(el => {
-            prodTotal = el.quantity * el.SKU_Price;
-            supplierTotal = supplierTotal + prodTotal;
-          });
-        }
-      })
-
-      sameProd.forEach((x) => {
-        this.supplierDetail.totalProductName.push({
-          productName: x.productName
-        });
-      })
-      this.supplierProductobj.productDetail = sameProd;
-      this.supplierProductobj.supplierEmail = email;
-      this.supplierProductobj.userName = this.user.name;
-      this.supplierProductobj.requested = "0";
-      this.supplierProductobj.addOn = Date.now();
-      this.msgStruct = [{
-        message: 'Welcome to M2B', timeSent: Date.now().toString(), userName: "Supplier", senderId: '', senderEmail: email
-      }]
-      this.supplierProductobj.messages = this.msgStruct;
-      this.supplierProductobj.supplierUnread = 0;
-      this.supplierProductobj.deliverAddress = this.deliveryAddress;
-      this.supplierProductobj.lastAddedMsgDate = Date.now().toString();
-      this.supplierProductobj.userUnread = 1;
-      this.supplierProductobj.userEmail = this.ownEmail;//
-      this.supplierProductobj.userPhone = this.user.phoneNo;
-      this.supplierProductobj.totalPrice = supplierTotal;
-      this.supplierProductobj.orderID = this.productobj.id;
-      this.supplierProductobj.userOrderID = this.makeid();
-      this.supplierDetail.supplierOrderId = this.supplierProductobj.userOrderID;
-
-      // Setting Email Data for admin and send
-      console.log(this.supplierDetail);
-      this.arr.push(this.supplierDetail);
-      this.supplierOrderListService.createOrderList(this.supplierProductobj);
-      this.supplierTag.title = "New Order Just Placed !";
-      this.supplierTag.data = `<span style="font-weight: bold;">User Name:</span>  ${this.user.name} <p>
-      Delivery Address :<br/>
-        ${this.deliveryAddress} <br/>
-        ${this.user.phoneNo }<br/>
-        Delivery Time :<br/>
-        3 Business  Day<br/>
-      </p>`;
-
-
-      this.supplierTag.link = ` <p style="background-color: #ff8e32;border: 2px solid #ffffff;color:#ffffff;border-radius: .5rem;font-size: 14px;font-weight: 600;line-height:1;padding: 20px 13px;text-align:center;margin-left: 21%;margin-right: 20%;cursor: pointer;"><a href="${this.appUrl}/#/admin/order-list" >Check Order Detail</a></p> `
-      container.productDetail = this.orderList;
-      this.sendEmailService.sendEmail(email, this.supplierTag, this.totalSelectPrice, container);
-      console.log(this.arr);
-      supplierTotal = 0;
-      prodTotal = 0
-      sameProd = [];
-      this.supplierDetail = new SupplierOrderInfo();
-    })
-
-  }*/
-
-
-  
-  credit : any;
-  user : any;
+  credit: any;
+  user: any;
   getUserByOption() {
-    this.ownEmail = JSON.parse(localStorage.getItem("user"));
-    if(this.ownEmail['email'])
-    {
+    this.ownEmail = JSON.parse(localStorage.getItem('user'));
+    if (this.ownEmail['email']) {
       this.supplierSer.getUsersByOption('email', this.ownEmail['email']).snapshotChanges().pipe(
         map(changes =>
           changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
@@ -315,8 +528,7 @@ let t  = dd + '/' + mm + '/' + yyyy;
       ).subscribe(users => {
         this.user = users[0];
 
-        if(users[0]['future'])
-        {
+        if (users[0]['future']) {
           this.address = users[0]['future']['address'];
           this.saddress = users[0]['future']['saddress'];
           this.save_next = users[0]['future']['save_next'];

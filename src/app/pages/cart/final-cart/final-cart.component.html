@@ -1,8 +1,32 @@
-<app-header currentAction=""  previousLink="/basic-cart?productId={{order_id}}" previousAction="Review"></app-header>
+<app-header></app-header>
+<ng-container *ngIf="thank">
+<!--Thank you page-->
+
+<!-- status -->
+<div  id="buy_back">
+  <div class="container" id="chat_box">
+    <div class="my_m2b_head thankyou">
+      <img src="assets/assets1/images/checkbox-icon.png" alt="">
+      <h2>Thank You!</h2>
+      <p>Please check your email for further instructions on <span>how to complete your account setup.</span></p>
+      <ul class="tabs">
+      <li class="tab-link apple_bg current" data-tab="tab-1"><a href="/M2B">
+      <b>Back to Home</b>
+      </a></li>
+      
+    </ul>
+    </div>
+    
+  </div> 
+</div>  
+<!--Thank you page-->
+</ng-container>
+<ng-container *ngIf="!thank">
 <div class="container">
     <!-- status -->
 <div class="status_wrap">
   <div class="container">
+
     <div class="row">
     <div class="col-sm-4 status_boxes">
       <h3 class="save_bg">Saved</h3>
@@ -50,19 +74,20 @@
       <div class="col-sm-4 billing_address">
         <div class="inner_box border_none">
           
-        <h4 class="bill_box"><span>1.</span> BILLING ADDRESS <i class="fa fa-angle-down"></i></h4>
-        <div class="according_one">
+        <h4 class="bill_box"(click)="show_accor('acc1')" ><span>1. </span> BILLING ADDRESS<i class="fa fa-angle-down"></i></h4>
+        <div class="form_gapp" *ngIf="acord.acc1 == 1" style="display:block;">
+
           <div class="row">
           <div class="col-sm-6 sidegapp_box">
             <div class="form_address">
               <label>First Name</label>
-              <input type="text" placeholder="" required="required" name="" [(ngModel)]="address.fname"/>
+              <input type="text" placeholder="" required="required" name="" [ngStyle]="{'border-color':address_error.fname == 0 ? 'red' : 'b8b8b8' }" [(ngModel)]="address.fname"/>
             </div>
           </div>
           <div class="col-sm-6 sidegapp_box">
             <div class="form_address">
               <label>Last Name</label>
-              <input type="text" placeholder="" required="required" name="" [(ngModel)]="address.lname"/>
+              <input type="text" placeholder="" required="required" name=""  [ngStyle]="{'border-color':address_error.lname == 0 ? 'red' : 'b8b8b8' }" [(ngModel)]="address.lname"/>
             </div>
           </div>
         </div>
@@ -71,27 +96,19 @@
           <div class="col-sm-12 sidegapp_box">
             <div class="form_address">
               <label>Email Address</label>
-              <input type="text" placeholder="" required="required" name="" [(ngModel)]="address.email"/>
+              <input type="text" placeholder="" required="required"  [ngStyle]="{'border-color':address_error.email == 0 ? 'red' : 'b8b8b8' }" name="" [(ngModel)]="address.email"/>
             </div>
           </div>
           
           <div class="col-sm-12 sidegapp_box">
             <div class="form_address">
               <label>Telephone</label>
-              <input type="text" placeholder="" required="required" name="" [(ngModel)]="address.phone"/>
+              <input type="text" placeholder="" required="required" name=""  [ngStyle]="{'border-color':address_error.phone == 0 ? 'red' : 'b8b8b8' }" [(ngModel)]="address.phone"/>
             </div>
           </div>
         </div>
 
-        <div class="filteroptions ">
-         <label class="bui-checkbox ">
-             <!-- <input class="bui-checkbox__input js-bui-checkbox__input billingbox" type="checkbox"> -->
-             <div class="bui-checkbox__label filter_item css-checkbox">
-                <span class="filter_label 
-                   ">Billing Address</span>
-             </div>
-          </label>
-      </div>
+        
 
       
 
@@ -100,13 +117,13 @@
           <div class="col-sm-12 ful_address">
             <div class="form_address">
               <label> Address</label>
-              <input type="text" placeholder="" required="required" name="" [(ngModel)]="address.address"/>
+              <input type="text" placeholder="" required="required" name="" [ngStyle]="{'border-color':address_error.address == 0 ? 'red' : 'b8b8b8' }" [(ngModel)]="address.address"/>
             </div>
           </div>
           <div class="col-sm-12 ful_address">
             <div class="form_address">
               <label> Town</label>
-              <input type="text" placeholder="" required="required" name=""  [(ngModel)]="address.town"/>
+              <input type="text" placeholder="" required="required" name=""  [ngStyle]="{'border-color':address_error.town == 0 ? 'red' : 'b8b8b8' }"  [(ngModel)]="address.town"/>
             </div>
           </div>
         </div>
@@ -115,13 +132,13 @@
           <div class="col-sm-6 sidegapp_box">
             <div class="form_address">
               <label>State/Territory</label>
-              <input type="text" placeholder="" required="required" name=""  [(ngModel)]="address.state"/>
+              <input type="text" placeholder="" required="required" name=""  [ngStyle]="{'border-color':address_error.state == 0 ? 'red' : 'b8b8b8' }"  [(ngModel)]="address.state"/>
             </div>
           </div>
           <div class="col-sm-6 sidegapp_box">
             <div class="form_address">
               <label>Postcode</label>
-              <input type="text" placeholder="" required="required" name=""  [(ngModel)]="address.postcode"/>
+              <input type="text" placeholder="" required="required" name=""  [ngStyle]="{'border-color':address_error.postcode == 0 ? 'red' : 'b8b8b8' }"  [(ngModel)]="address.postcode"/>
             </div>
           </div>
         </div>
@@ -130,7 +147,7 @@
           <div class="col-sm-12 ful_address">
             <div class="form_address">
               <label> Country</label>
-              <select id="country" name="country"  [(ngModel)]="address.country">
+              <select id="country" name="country"   [ngStyle]="{'border-color':address_error.country == 0 ? 'red' : 'b8b8b8' }"    [(ngModel)]="address.country">
                                 <option value="United States">United States</option>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Åland Islands">Åland Islands</option>
@@ -377,6 +394,8 @@
                 <option value="Zambia">Zambia</option>
                 <option value="Zimbabwe">Zimbabwe</option>
             </select>
+            <label><input type="checkbox" class="new_check"  [(ngModel)]="save_next" name=""> Save for later use.</label>
+        </div>
             </div>
           </div>
         </div>
@@ -398,13 +417,13 @@
           <div class="col-sm-12 ful_address">
             <div class="form_address">
               <label> Address</label>
-              <input type="text" placeholder="" required="required" name="" [(ngModel)]="saddress.address">
+              <input type="text" placeholder="" required="required" name=""   [ngStyle]="{'border-color':saddress_error.address == 0 ? 'red' : 'b8b8b8' }"   [(ngModel)]="saddress.address">
             </div>
           </div>
           <div class="col-sm-12 ful_address">
             <div class="form_address">
               <label> Town</label>
-              <input type="text" placeholder="" required="required" name=""[(ngModel)]="saddress.town">
+              <input type="text" placeholder="" required="required"  [ngStyle]="{'border-color':saddress_error.town == 0 ? 'red' : 'b8b8b8' }"   name=""[(ngModel)]="saddress.town">
             </div>
           </div>
         </div>
@@ -413,13 +432,13 @@
           <div class="col-sm-6 sidegapp_box">
             <div class="form_address">
               <label>State/Territory</label>
-              <input type="text" placeholder="" required="required" name=""[(ngModel)]="saddress.state">
+              <input type="text" placeholder=""  [ngStyle]="{'border-color':saddress_error.state == 0 ? 'red' : 'b8b8b8' }"   required="required" name=""[(ngModel)]="saddress.state">
             </div>
           </div>
           <div class="col-sm-6 sidegapp_box">
             <div class="form_address">
               <label>Postcode</label>
-              <input type="text" placeholder="" required="required" name="" [(ngModel)]="saddress.postcode">
+              <input type="text" placeholder="" required="required" name=""   [ngStyle]="{'border-color':saddress_error.postcode == 0 ? 'red' : 'b8b8b8' }"   [(ngModel)]="saddress.postcode">
             </div>
           </div>
         </div>
@@ -428,7 +447,7 @@
           <div class="col-sm-12 ful_address">
             <div class="form_address">
               <label> Country</label>
-              <select id="country" name="country" [(ngModel)]="saddress.country">
+              <select id="country" name="country"   [ngStyle]="{'border-color':saddress_error.country == 0 ? 'red' : 'b8b8b8' }" [(ngModel)]="saddress.country">
                                 <option value="United States">United States</option>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Åland Islands">Åland Islands</option>
@@ -680,11 +699,7 @@
         </div>
         </div>
 
-        <div class="ship_address">
-          <label><input type="checkbox"  [(ngModel)]="save_next" name=""> Save for later use.</label>
-          <!-- <label><input type="checkbox" name=""> Ship to the same address</label> -->
-        </div>
-        </div>
+        
         
       
         </div>
@@ -692,81 +707,53 @@
 
       <div class="col-sm-4 billing_address">
         <div class="inner_box">
-          <h4 class="shipping_box"><span>2.</span> SHIPPING METHOD <i class="fa fa-angle-down"></i></h4>
-            <div class="according_two">
+          <h4 class="shipping_box" (click)="show_accor('acc2')"><span>2.</span> SHIPPING METHOD <i class="fa fa-angle-down"></i></h4>
+            <div  *ngIf="acord.acc2 == 1" style="display:block;">
               <p>We've noticed that customers in your country have been asked by customer to pay improt or taxes when ordering from delivery and selecting express shipping</p>
             <p>Please consider this when selecting your shipping options</p>
             <div class="ship_address radio_box" *ngFor="let item of shipping_methods;let i = index;">
               <label><input type="radio"(change)="shipping();" name="smethod" value="{{i}}"  [(ngModel)]="smethod" /> {{item.name}} <span>${{item.price}}</span></label>
             </div>
-            <a href="#">See more info on shipping</a>
             <div class="ship_address">
-          <label><input type="checkbox" name=""> Save for later use.</label>
             <!-- <label><input type="checkbox" name=""> Ship to the same address</label> -->
           </div>
             </div>
         </div>
 
         <div class="inner_box">
-          <h4 class="payment_box"><span>3.</span> PAYMENT METHOD <i class="fa fa-angle-down"></i></h4>
-          <div class="according_three">
-          <div class="ship_address radio_box">
-              <label><input type="radio" name=""> Credit Card <span><img src="images/mastercard.jpg" alt=""> <img src="images/visa.jpg" alt=""></span></label>
+          <h4 class="payment_box"  (click)="show_accor('acc3')"><span>3.</span> PAYMENT METHOD <i class="fa fa-angle-down"></i></h4>
+          <div   *ngIf="acord.acc3 == 1" style="display:block;">
+          <div class="ship_address radio_box" id="radiobtn">
+              <label><input type="radio" [(ngModel)]="pmethod" (change)="pchange()" value="ccard" name="pmethod"> Credit Card <!-- <span><img src="images/mastercard.jpg" alt=""> <img src="images/visa.jpg" alt=""></span> --></label>
+              <label><input type="radio" [(ngModel)]="pmethod" (change)="pchange()" value= "credit" name="pmethod">  M2B Credit <!-- <span><img src="images/mastercard.jpg" alt=""> <img src="images/visa.jpg" alt=""></span> --></label>
             </div>
-          <div class="row">
-          <div class="col-sm-6 sidegapp_box">
-            <div class="form_address">
-              <label>Credit Card Type</label>
-              <select>
-                <option>Visa</option>
-                <option>Paypal</option>
-              </select>
-            </div>
+          <div class="row credit_error" *ngIf="pmethod == 'credit'">
+            <span style="color:red;">{{cerror}}</span>
           </div>
-          <div class="col-sm-6 sidegapp_box">
-            <div class="form_address">
-              <label>Credit Card Number</label>
-              <input type="text" placeholder="" required="required" name="">
-            </div>
+              <label for="sq-card-number">Card Number:</label>
+              <div id="sq-card-number"></div>
+              <label for="sq-cvv">CVV:</label>
+              <div id="sq-cvv"></div>
+              <label for="sq-expiration-date">Expiration Date:</label>
+              <div id="sq-expiration-date"></div>
+              <label for="sq-postal-code">Postal Code:</label>
+              <div id="sq-postal-code"></div>
+
+              <button id="sq-creditcard" class="btn-main button-credit-card" (click)="this.requestCardNonce($event)">Pay with card</button>
+
+              <input type="hidden" id="sq-id" name="sq-id">
+              <input type="hidden" id="card-nonce" name="nonce">
+
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6 sidegapp_box">
-            <div class="form_address">
-              <label>Expiry Date From</label>
-              <input type="date" name="">
-            </div>
-          </div>
-          <div class="col-sm-6 sidegapp_box">
-            <div class="form_address">
-              <label>Expiry Date To</label>
-              <input type="date" name="">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12 sidegapp_box">
-            <div class="form_address">
-              <label>Card Verification Number</label>
-              <input type="text" name="">
-            </div>
-          </div>
-          
-        </div>  
-        <div class="ship_address">
-          <label><input type="checkbox" name=""> Save for later use.</label>
-          <!-- <label><input type="checkbox" name=""> Ship to the same address</label> -->
-        </div>
-        </div>  
         </div>
 
       </div>
 
       <div class="col-sm-4 billing_address">
         <div class="inner_box your_order">
-          <h4 class="order_box"><span>4.</span> REVIEW YOUR ORDER <i class="fa fa-angle-down"></i></h4>
-          <div class="according_four">
-          <ng-container  *ngFor="let item of cart;let i = index;">  
+          <h4 class="order_box" (click)="show_accor('acc4')"><span>4.</span> REVIEW YOUR ORDER <i class="fa fa-angle-down"></i></h4>
+          <div  *ngIf="acord.acc4 == 1" style="display:block;">
+          <ng-container  *ngFor="let item of cart;let ci = index;">  
           <div class="product_infobox"  *ngIf="item.uid == userId">
             <div class="row">
               <div class="col-sm-2 product_img">
@@ -776,15 +763,15 @@
                 <b>{{item.product.product_name}} </b>
                 <p>{{item.astr}}</p>
                 <div class="row">
-                  <div class="col-sm-6 qtybox">
+                  <div class="col-sm-5 qtybox">
                     <div class="quantity_box_pos">
-                        <input type="button" value="-" class="qty-minus_pos minus_plus_pos" (click)="updateqty(i,'m')">
-                        <input type="text" class="value_box_pos" value="{{item.qty}}">
-                        <input type="button" value="+" class="qty-plus_pos minus_plus_pos" (click)="updateqty(i,'p')">
+                        <input type="button" value="-" class="qty-minus_pos minus_plus_pos" (click)="updateqty(ci,'m')">
+                        <input type="number" class="value_box_pos" [(ngModel)]="item.qty" (keyup)="updateqty(ci,'d')" value="{{item.qty}}">
+                        <input type="button" value="+" class="qty-plus_pos minus_plus_pos" (click)="updateqty(ci,'p')">
                      </div>
                   </div>
-                  <div class="col-sm-6 close_product">
-                    <b>${{item.sku.SKU_Price*item.qty}}x{{item.qty}} <a href="#"><i class="fa fa-close"></i></a></b>
+                  <div class="col-sm-7 close_product">
+                    <b>${{item.sku.SKU_Price*item.qty | number : '1.2-2'}}x{{cart[ci].qty}} <a (click)="removecartitem(ci)"><i class="fa fa-close"></i></a></b>
                   </div>
                 </div>
               </div>
@@ -795,18 +782,18 @@
             <tbody>
             <tr>
               <td >Subtotal:</td>
-              <td>${{stot}}</td>
+              <td>${{stot | number : '1.2-2'}}</td>
+            </tr>            
+            <tr *ngIf="samount">
+              <td >Shipping Fee:</td>
+              <td>${{samount | number : '1.2-2'}}</td>
             </tr>
             <tr>
               <td >Grand Total:</td>
-              <td>${{tot}}</td>
+              <td>${{tot | number : '1.2-2'}}</td>
             </tr>
           </tbody>
         </table>
-        <div class="ship_address">
-          <label><input type="checkbox" name=""> Save for later use.</label>
-          <!-- <label><input type="checkbox" name=""> Ship to the same address</label> -->
-        </div>
         </div>
         </div>
       </div>
@@ -818,5 +805,7 @@
 </div>
 <div class="subtotal" id="carttotal" (click)="checkout()">
   <h3><img src="assets/assets1/images/logo.png" alt=""> <a> Pay with M2B </a></h3>
+  <span *ngIf="tot">${{tot | number : '1.2-2'}}</span>
 </div>
+</ng-container>
 <app-footer></app-footer>

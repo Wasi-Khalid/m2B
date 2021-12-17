@@ -16,29 +16,23 @@
       <a href="#/chat">
         <i class="fa fa-envelope"></i>
         <b>Messages</b>
-        <span>1</span>
+        <span *ngIf="ctot > 0">{{ctot}}</span>
       </a>
     </li>
     <li>
       <a href="#/myOrderList">
         <i class="fa fa-truck"></i>
         <b>Order</b>
-         <span id="order_number">2</span>
+         <span id="order_number" *ngIf="ocount > 0">{{ocount}}</span>
       </a>
     </li>
-    <!-- <li>
-      <a href="buy-back.html">
+     <li>
+      <a href="#/mym2bCredit">
         <i class="fa fa-money"></i>
         <b>Buy Back</b>
          <span>1</span>
       </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-search"></i>
-        <b>Search</b>
-      </a>
-    </li> -->
+    </li> 
   </ul>
 </div>
 

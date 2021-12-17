@@ -18,6 +18,7 @@ export class MyOrderListComponent implements OnInit {
   localStorageData: any;
   subOrder = [];
   count = 0;
+  uid : any; 
   urls = [
     { name: 'DHL', head: 'http://www.dhl.com.pk/en/express/tracking.html?AWB=', tail: '&brand=DHL' },
     { name: 'UPS', head: 'https://www.ups.com/track?loc=en_US&requester=ST/', tail: '' },
@@ -25,7 +26,19 @@ export class MyOrderListComponent implements OnInit {
   ]
 
   constructor(private router: Router, private supplierOrderListService: SupplierOrderListService, private orderListService: OrderListService) {
+    this.uid = localStorage.getItem('login');
 
+  }
+  pmethod(id)
+  {
+    if(id == 'ccard')
+    {
+      return 'Credit card';
+    }
+    else if(id == 'credit') 
+    {
+      return 'M2b Credit';
+    }
   }
 
   ngOnInit() {
@@ -51,9 +64,19 @@ export class MyOrderListComponent implements OnInit {
         )
       )
       .subscribe(orderList => {
-        this.myOrdersInfo = orderList;
-      });
+        let or = [];
+        orderList.forEach((currentValue, index) => {
+            if(currentValue['uid'] == this.uid)
+            {
+              or.push(currentValue);
+            }
+        });
+        or.reverse();
+        this.myOrdersInfo = or;
+        console.log("myOrdersInfo");
     console.log(this.myOrdersInfo);
+      });
+
     
   }
 

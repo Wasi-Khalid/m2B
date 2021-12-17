@@ -14,10 +14,10 @@ import { AuthComponent } from './authentication/auth/auth.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { OptionsComponent } from './pages/options/options.component';
 import { HomeComponent } from './pages/home/home.component';
-import {BasicCartComponent} from "./pages/cart/basic-cart/basic-cart.component";
-import {FinalCartComponent} from "./pages/cart/final-cart/final-cart.component";
-import {CartCheckoutComponent} from "./pages/cart/cart-checkout/cart-checkout.component";
-import {MaintenanceComponent} from "./common/maintenance/maintenance.component";
+import {BasicCartComponent} from './pages/cart/basic-cart/basic-cart.component';
+import {FinalCartComponent} from './pages/cart/final-cart/final-cart.component';
+import {CartCheckoutComponent} from './pages/cart/cart-checkout/cart-checkout.component';
+import {MaintenanceComponent} from './common/maintenance/maintenance.component';
 import { AuthGuard } from './authentication/core/auth.guard';
 
 import { CategoriesComponent } from './pages/admin/categories/categories.component';
@@ -76,20 +76,20 @@ export const routes: Routes = [
             path: '',
             component: LoginComponent,
             // pathMatch: 'full',
-            canActivate: [UserService] 
+            canActivate: [UserService]
           },
         ]
       },
-      { path: 'register', component: RegisterComponent,canActivate: [UserService]   },
-      { path: 'options', component: OptionsComponent ,canActivate: [UserService]  },
+      { path: 'register', component: RegisterComponent, canActivate: [UserService]   },
+      { path: 'options', component: OptionsComponent , canActivate: [UserService]  },
     ]
   },
-  
+
   {
-            path: "home",
+            path: 'home',
             component: HomeComponent ,
             canActivate: [AuthGuard] ,
-            
+
             children: [
               {
                 path: '',
@@ -97,8 +97,8 @@ export const routes: Routes = [
                 pathMatch: 'full'
               },
               {
-                path: "products",
-             
+                path: 'products',
+
                 children: [
                   {
                     path: '',
@@ -106,20 +106,32 @@ export const routes: Routes = [
                     pathMatch: 'full'
                   }
                 ]
-                
+
+              },
+              {
+                path: 'buyback',
+
+                children: [
+                  {
+                    path: '',
+                    component: CategoryTabComponent ,
+                    pathMatch: 'full'
+                  }
+                ]
+
               }
-            
+
             ]
           },
               {
-                path: "product-detail",
+                path: 'product-detail',
 
                     component: ProductDetailComponent ,
                     pathMatch: 'full'
 
               },
           {
-            path: "basic-cart",
+            path: 'basic-cart',
             canActivate: [AuthGuard],
             // component: BasicCartComponent ,
             children: [
@@ -130,8 +142,8 @@ export const routes: Routes = [
                 pathMatch: 'full'
               },
               {
-                path: "final-cart",
-             
+                path: 'final-cart',
+
                 children: [
                   {
                     path: '',
@@ -139,22 +151,22 @@ export const routes: Routes = [
                     pathMatch: 'full'
                   },
                   {
-                    path: "checkout-cart", component: CartCheckoutComponent,
+                    path: 'checkout-cart', component: CartCheckoutComponent,
                     // pathMatch: 'full'
                   }
                 ]
-                
+
               }
-            
+
             ]
           },
-          
+
           {
             path: 'mym2bBasic',
             component: Mym2bBasicComponent ,
             pathMatch: 'full',
             canActivate: [AuthGuard]
-            
+
           },
           {
             path: 'myOrderList',
@@ -166,27 +178,27 @@ export const routes: Routes = [
                 pathMatch: 'full'
               },
               {
-                path: "returnRequest", component: ReturnRequestComponent
+                path: 'returnRequest', component: ReturnRequestComponent
               }
-              
+
             ]
-           
-            
+
+
           },
           {
-            path: "chat", 
+            path: 'chat',
             canActivate: [AuthGuard],
             children: [
             {
               path: '',
               component: ChatComponent ,
-              
+
               pathMatch: 'full'
             },
             {
-              path: "messages", component: MessagesComponent
+              path: 'messages', component: MessagesComponent
             }
-            
+
           ]
         },
           {
@@ -244,10 +256,10 @@ export const routes: Routes = [
             canActivate: [AuthGuard]
           },
           {
-            path: "admin",
-            component:AdminComponent,
+            path: 'admin',
+            component: AdminComponent,
             canActivate: [AuthGuard],
-            
+
             children: [
               {
                 path: '',
@@ -255,54 +267,48 @@ export const routes: Routes = [
                 pathMatch: 'full'
               },
               {
-                path: "order-list",
+                path: 'order-list',
                 component: OrderListComponent ,
                 pathMatch: 'full'
-                
               },
               {
-                path: "settings",
+                path: 'settings',
                 component: SettingComponent ,
                 pathMatch: 'full'
-                
-              },//
+              },
               {
-                path: "suppliers-request",
+                path: 'suppliers-request',
                 component: SupplierRequestComponent ,
                 pathMatch: 'full'
-                
               },
               {
-                path: "suppliers-cashout-request",
+                path: 'suppliers-cashout-request',
                 component: CashoutRequestComponent ,
                 pathMatch: 'full'
-                
               },
-              
               {
-                path: "suppliers-return-request",
+                path: 'suppliers-return-request',
                 component: ReturnRequestForSupplierComponent ,
                 pathMatch: 'full'
-                
               },
-              
+
                 {
-                  path: "items-sold", component: ItemSoldComponent
+                  path: 'items-sold', component: ItemSoldComponent
                 },
               {
-                path: "chat", 
-                
+                path: 'chat',
+
                 children: [
                 {
                   path: '',
                   component: adminChatComponent ,
-                  
+
                   pathMatch: 'full'
                 },
                 {
-                  path: "messages", component: adminMessagesComponent
+                  path: 'messages', component: adminMessagesComponent
                 }
-                
+
               ]
             },
               {
@@ -311,40 +317,40 @@ export const routes: Routes = [
                   {
                     path: '',
                     component: CategoriesComponent ,
-                    
+
                     pathMatch: 'full'
                   },
                   {
-                    path: "edit-category", component: EditCategoryComponent
+                    path: 'edit-category', component: EditCategoryComponent
                   },
                   {
-                    path: "add-category", component: AddCategoryComponent
+                    path: 'add-category', component: AddCategoryComponent
                   },
-                  
+
                   {
-                    path: "products", 
-                    
+                    path: 'products',
+
                     children: [
                     {
                       path: '',
                       component: ProductsComponent ,
-                      
+
                       pathMatch: 'full'
                     },
                     {
-                      path: "edit-product", component: EditProductComponent
+                      path: 'edit-product', component: EditProductComponent
                     },
                     {
-                      path: "add-product", component: AddProductComponent
+                      path: 'add-product', component: AddProductComponent
                     },
                     {
-                      path: "cat-product", component: CatProductsComponent
+                      path: 'cat-product', component: CatProductsComponent
                     }
                   ]},
 
 
                   {
-                    path: "suppliers",
+                    path: 'suppliers',
 
                     children: [
                       {
@@ -353,12 +359,12 @@ export const routes: Routes = [
                         pathMatch: 'full'
                       },
                       {
-                        path: "edit-supplier", component: EditUserComponent
+                        path: 'edit-supplier', component: EditUserComponent
                       }
                     ]
                   },
                   {
-                    path: "businesses",
+                    path: 'businesses',
                     children: [
                       {
                         path: '',
@@ -366,11 +372,11 @@ export const routes: Routes = [
                         pathMatch: 'full'
                       },
                       {
-                        path: "edit-businesses", component: EditBusinessUserComponent
+                        path: 'edit-businesses', component: EditBusinessUserComponent
                       }
                     ]
                   },
-                  
+
                     // {
                     //   path: "edit-product", component: EditProductComponent
                     // },
@@ -386,8 +392,8 @@ export const routes: Routes = [
     component: MaintenanceComponent,
     canActivate: [AuthGuard]
   },
-  
-  
+
+
   {
     path: '**',
     component: NotfoundComponent,

@@ -1,66 +1,60 @@
-<app-header previousLink="/myOrderList" previousAction="Back"></app-header>
-<div class="container">
-    <div class="row cart-table">
-
-        <div class="card card-shadow mb-4 col-12">
-            <div class="card-header">
-                <div class="card-title text-center">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <h3><a>Return Request</a> </h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div *ngFor="let item of orderList" class="table-style">
-                    <div *ngFor="let product of item.productDetail; let i = index" class="table-style">
-                        <h5 class="prodTitle">{{product.productName}}
-                            <button class="btn btn-outline-danger addBtn" (click)="removeProduct(i)">
-                <i class="fa fa-minus"></i></button>
-                        </h5>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <td class=" title-text" scope="col">Product Type</td>
-                                    <td class=" title-text">Price</td>
-                                    <td class=" title-text">Quantity</td>
-                                    <td><input type="text" class="form-control title-text" [value]="product['col1Title']" disabled="true">
-                                    </td>
-                                    <td><input type="text" class="form-control title-text" [value]="product['col2Title']" disabled="true">
-                                    </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr *ngFor="let type of product['productSKU']; let x = index">
-
-                                    <th scope="row" [ngStyle]="{'white-space':type.SKU_Name.length > 10 ? 'normal' : 'nowrap' }">
-                                        {{type.SKU_Name}}</th>
-                                    <td>$ {{type.SKU_Price}}</td>
-                                    <td><input type="text" class="form-control" [(ngModel)]="type.quantity" placeholder="Qty"></td>
-                                    <td>{{type.col1Value? type.col1Value : 'None' }}</td>
-                                    <td>{{type.col2Value? type.col2Value : 'None'}}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-outline-danger" (click)="removeSKU(i,x)"> <i
-                        class="fa fa-trash-o trash"></i></button>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+<app-header></app-header>
+<div id="buy_back">
+    <div class="container">
+    <div class="my_m2b_head">
+      <h2>Return Request</h2>
     </div>
+    <div class="shipped_box" id>
+        <div class="regular_lcd">
+       <h5>Regular Replacement LCD's</h5>
+    </div>
+    <table class="table_box product_table">
+        <thead>
+            <tr>
+                <th class=" title-text" scope="col">Product</th>
+                <th class=" title-text">Quantity</th>
+                <th class=" title-text">Details</th>
+                <th class=" title-text">Total</th>
+                <!-- <td class=" title-text">Action</td> -->
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngIf="orderList['cart']">
+            <ng-container *ngFor="let p of orderList['cart']; let x = index"> 
+            <tr *ngIf="p.qty" >
+                <td scope="col" class="pro_gap"><img width="40" height="40" class="pro_img " src="{{p.product.path}}" />Here{{p.product.product_name}}
+                                <br>
+                                <div class="order_attributes">
+                                    <ng-container  *ngFor="let attr of p.attributes;let i = index;">
+                                    <a *ngIf="attr.chosen">{{attr.chosen}}</a>
+                                </ng-container>
 
-    <div class="row mt-3">
-        <div class="offset-2 col-8 text-center">
+                                </div>
+                               
+                                <span>{{p.sku.SKU_Name}}</span>
 
-            <button type="button" class="btn btn-primary btn-lg btn-block " (click)="sendRequest()"> Send Request </button>
+                            </td>
+                            <td>
+                                {{p.qty}}
+                            </td>
+                            <td id="qty_valuebox">
+                                <input  type="button" value="-"  (click)="updateqty(x,'m')"/>
+                                <input type="text" value="{{p.rqty}}" name=""/>
+                                <input type="button" value="+" (click)="updateqty(x,'p')" />
+                              </td>
+                <td>${{p.qty * p.sku.SKU_Price}}</td>
+            </tr>
+        </ng-container>
+        </ng-container>
+
+        </tbody>
+        </table>
+        </div>
+
+    <div class="send_request">
+
+            <button type="button"  (click)="sendRequest()"> Send Request </button>
 
         </div>
-    </div>
+</div>
 </div>
