@@ -92,10 +92,6 @@ import { Mym2bComponent } from './pages/mym2b/mym2b.component';
 import { PaymentComponent } from './payment/payment.component';
 
 
- 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -122,7 +118,6 @@ import { PaymentComponent } from './payment/payment.component';
     ProductsComponent,
     CategoriesComponent,
     SideNavComponent,
-   
     AdminFooterComponent,
     AdminComponent,
     SuppliersComponent,
@@ -153,8 +148,6 @@ import { PaymentComponent } from './payment/payment.component';
     OrdersComponent,
     Mym2bComponent,
     PaymentComponent
-    
-
   ],
   imports: [
     BrowserModule,

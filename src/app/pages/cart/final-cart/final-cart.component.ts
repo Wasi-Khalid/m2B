@@ -331,7 +331,7 @@ export class FinalCartComponent implements OnInit, OnDestroy, AfterViewInit {
         const applicationId = 'sandbox-sq0idb-k4hnHREFEoRrPC_7uXZV-Q';
 
         // Set the location ID
-        const locationId = 'CBASELjav8kAOzgP4SZlbX46e_IgAQ';
+        const locationId = 'LR3D26P5J3PG7';
         this.paymentForm = new SqPaymentForm({
             autoBuild: false,
             // Initialize the payment form elements
@@ -392,13 +392,6 @@ export class FinalCartComponent implements OnInit, OnDestroy, AfterViewInit {
                     })
                         .catch(err => {
                             alert('Network error: ' + err);
-                        })
-                        .then(response => {
-                            if (!(response ? response.ok : undefined)) {
-                                return response ? response.json().then(
-                                    errorInfo => Promise.reject(errorInfo)) : undefined;
-                            }
-                            return response ? response.json() : undefined;
                         })
                         .then(data => {
                             console.log(data);
